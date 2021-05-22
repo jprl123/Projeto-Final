@@ -2,7 +2,6 @@
 # ----- Importa e inicia pacotes
 from mapas import *
 import pygame
-from os import path
 from config  import *
 from assets import *
 pygame.init()
@@ -10,7 +9,7 @@ pygame.init()
 # ----- Gera tela principal
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('Hello World!')
+pygame.display.set_caption('O rato e a rata')
 
 
 # ----- Inicia estruturas de dados
@@ -141,7 +140,7 @@ class Rato2(pygame.sprite.Sprite):
         # Atualiza a posição y
         self.rect.y += self.speedy
         # Se colidiu com algum bloco, volta para o ponto antes da colisão
-        collisions = pygame.sprite.spritecollide(self, self.blocks, False)
+        collisions = pygame.sprite.spritecollide(self,self.blocks,False)
         # Corrige a posição do personagem para antes da colisão
         for collision in collisions:
             # Estava indo para baixo
@@ -175,6 +174,26 @@ class Rato2(pygame.sprite.Sprite):
             # Estava indo para a esquerda
             elif self.speedx < 0:
                 self.rect.left = collision.rect.right
+        
+        #colisão para quando tocar no fogo
+        hitfogo = pygame.sprite.spritecollide(self,self.fogo,False)
+        for collision in hitfogo:
+            # Estava indo para baixo
+            if self.speedy > 0:
+                self.rect.bottom = collision.rect.top
+                # Se colidiu com algo, para de cair
+                self.speedy = 0
+                # Atualiza o estado para parado
+                self.state = STILL
+            # Estava indo para cima
+            elif self.speedy < 0:
+                self.rect.top = collision.rect.bottom
+                # Se colidiu com algo, para de cair
+                self.speedy = 0
+                # Atualiza o estado para parado
+                self.state = STILL
+            
+        
         # Método que faz o personagem pular
     def jump(self):
         # Só pode pular se ainda não estiver pulando ou caindo
@@ -206,7 +225,7 @@ def game_screen(screen):
     player = Rato1(assets[RATO1], 10, 2, blocks,fogo,water)  # onde spawna
     player2 = Rato2(assets[RATO2], 12, 4, blocks,fogo,water)
 
-    # Cria tiles de acordo com o mapa
+    # Cria os blocos de acordo com o mapa
     for row in range(len(MAP)):
         for column in range(len(MAP[row])):
             tile_type = MAP[row][column]
@@ -215,12 +234,17 @@ def game_screen(screen):
                 all_sprites.add(tile)
                 blocks.add(tile)
             elif tile_type == FOGO:
+                tile = Tile(assets[tile_type], row, column)
+                all_sprites.add(tile)
                 fogo.add(tile)
             elif tile_type == WATER:
+                tile = Tile(assets[tile_type], row, column)
+                all_sprites.add(tile)
                 water.add(tile)
             
     all_sprites.add(player,player2)
 
+    #if len(Rato2.update())
 
 
     PLAYING = 0
@@ -263,8 +287,12 @@ def game_screen(screen):
                     player2.speedx -= 8
         
         all_sprites.update()
+
+    
         # A cada loop, redesenha o fundo e os sprites
-        screen.fill(BLACK)
+        #atualiza a tela
+        screen.fill(BLACK)  
+        screen.blit(assets[BACKGROUND], (0, 0))
         all_sprites.draw(screen)
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
