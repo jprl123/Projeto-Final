@@ -10,7 +10,7 @@ HEIGHT = 1080
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Hello World!')
 FPS = 30 
-TILE_SIZE = 20 # Tamanho de cada tile (cada tile é um quadrado)
+TILE_SIZE = 30 # Tamanho de cada tile (cada tile é um quadrado)
 # Define a aceleração da gravidade
 GRAVITY = 3.5
 # Define a velocidade inicial no pulo
