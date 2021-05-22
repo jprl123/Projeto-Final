@@ -222,8 +222,8 @@ def game_screen(screen):
     #groups = {}
     #groups['all_sprites'] = all_sprites
     # Cria Sprite do jogador
-    player = Rato1(assets[RATO1], 10, 2, blocks,fogo,water)  # onde spawna
-    player2 = Rato2(assets[RATO2], 12, 4, blocks,fogo,water)
+    player = Rato1(assets[RATO1], 5, 2, blocks,fogo,water)  # onde spawna
+    player2 = Rato2(assets[RATO2], 5, 62, blocks,fogo,water)
 
     # Cria os blocos de acordo com o mapa
     for row in range(len(MAP)):

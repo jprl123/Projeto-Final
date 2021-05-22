@@ -46,7 +46,7 @@ FPS = 30
 
 TILE_SIZE = 30 # Tamanho de cada tile (cada tile é um quadrado)
 # Define a aceleração da gravidade
-GRAVITY = 3.5
+GRAVITY = 2.5
 # Define a velocidade inicial no pulo
 JUMP_SIZE = TILE_SIZE
 # Define a velocidade em x
