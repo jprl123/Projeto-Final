@@ -1,5 +1,6 @@
 # ===== Inicialização =====
 # ----- Importa e inicia pacotes
+from mapas import *
 import pygame
 from os import path
 pygame.init()
@@ -58,7 +59,7 @@ assets['queijo'] = pygame.transform.scale(assets['queijo'],(QUEIJO_WIDTH, QUEIJO
 
 
 # Define o mapa com os tipos de tiles
-MAP = mapa1
+MAP = mapa_1
 
 # Define estados possíveis do jogador
 STILL = 0
