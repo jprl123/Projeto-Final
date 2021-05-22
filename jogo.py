@@ -3,60 +3,18 @@
 from mapas import *
 import pygame
 from os import path
+from config  import *
+from assets import *
 pygame.init()
 
 # ----- Gera tela principal
-WIDTH = 1920
-HEIGHT = 1080
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Hello World!')
-FPS = 30 
-TILE_SIZE = 30 # Tamanho de cada tile (cada tile é um quadrado)
-# Define a aceleração da gravidade
-GRAVITY = 3.5
-# Define a velocidade inicial no pulo
-JUMP_SIZE = TILE_SIZE
-# Define a velocidade em x
-SPEED_X = 5
-
-# Define algumas variáveis com as cores básicas
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
-
-TITULO = 'Exemplo de Tiles'
-JUMP_SIZE = TILE_SIZE
-BLOCK = 0
-FOGO = 1
-WATER = 2
-EMPTY = -1
 
 
-img_dir = path.join(path.dirname(__file__), 'assets\img')
-rato1 = 'player_img'
-rato2 = 'player2_img'
 # ----- Inicia estruturas de dados
 game = True
-
-# ----- Inicia assets
-RATO_WIDTH = 30
-RATO_HEIGHT = 15
-QUEIJO_WIDTH = 50
-QUEIJO_HEIGHT = 38
-assets = {}
-assets['background'] = pygame.image.load('assets/img/mapa.png').convert()
-assets['background'] = pygame.transform.scale(assets['background'],(WIDTH,HEIGHT))
-assets['rato1'] = pygame.image.load('assets/img/rato1.png').convert_alpha()
-assets['rato1'] = pygame.transform.scale(assets['rato1'],(RATO_WIDTH, RATO_HEIGHT))
-assets['rato2'] = pygame.image.load('assets/img/rato2.png').convert_alpha()
-assets['rato2'] = pygame.transform.scale(assets['rato2'],(RATO_WIDTH, RATO_HEIGHT))
-assets['queijo'] = pygame.image.load('assets/img/queijo.png').convert_alpha()
-assets['queijo'] = pygame.transform.scale(assets['queijo'],(QUEIJO_WIDTH, QUEIJO_HEIGHT))
-
-
 
 # Define o mapa com os tipos de tiles
 MAP = mapa_1
@@ -82,14 +40,6 @@ class Tile(pygame.sprite.Sprite):
         self.rect.y = TILE_SIZE * row
 
 
-# Carrega os sons do jogo
-'''pygame.mixer.music.load('assets/snd/tgfcoder-FrozenJam-SeamlessLoop.ogg')
-pygame.mixer.music.set_volume(0.4)
-assets['pega_queijo'] = pygame.mixer.Sound('assets/snd/expl3.wav')
-assets['passar de fase'] = pygame.mixer.Sound('assets/snd/expl6.wav')
-assets['score'] = pygame.mixer.Sound('assets/snd/pew.wav')'''
-
-
 class Rato1(pygame.sprite.Sprite):
     def __init__(self,player_img,row,column,blocks,fogo,water):
         # Construtor da classe mãe (Sprite).
@@ -108,7 +58,7 @@ class Rato1(pygame.sprite.Sprite):
         self.speedy = 0
 
         #self.groups = groups
-        self.assets = assets
+        #self.assets = assets
 
     def update(self):
         # Tenta andar em y
@@ -179,7 +129,7 @@ class Rato2(pygame.sprite.Sprite):
         self.speedy = 0
 
         #self.groups = groups
-        self.assets = assets
+        #self.assets = assets
 
     def update(self):
         # Tenta andar em y
@@ -231,23 +181,6 @@ class Rato2(pygame.sprite.Sprite):
         if self.state == STILL:
             self.speedy -= JUMP_SIZE
             self.state = JUMPING
-def load_assets(img_dir):
-    assets = {}
-    assets['background'] = pygame.image.load('assets/img/mapa.png').convert()
-    assets['background'] = pygame.transform.scale(assets['background'],(WIDTH,HEIGHT))
-    assets['rato1'] = pygame.image.load('assets/img/rato1.png').convert_alpha()
-    assets['rato1'] = pygame.transform.scale(assets['rato1'],(RATO_WIDTH, RATO_HEIGHT))
-    assets['rato2'] = pygame.image.load('assets/img/rato2.png').convert_alpha()
-    assets['rato2'] = pygame.transform.scale(assets['rato2'],(RATO_WIDTH, RATO_HEIGHT))
-    assets['queijo'] = pygame.image.load('assets/img/queijo.png').convert_alpha()
-    assets['queijo'] = pygame.transform.scale(assets['queijo'],(QUEIJO_WIDTH, QUEIJO_HEIGHT))
-    assets[BLOCK] = pygame.image.load(path.join(img_dir, 'block.png')).convert()
-    assets[FOGO] = pygame.image.load(path.join(img_dir, 'fogo.png')).convert()
-    assets[WATER] = pygame.image.load(path.join(img_dir, 'water.png')).convert()
-    return assets
-
-
-
 
 
 clock = pygame.time.Clock()
@@ -270,8 +203,8 @@ def game_screen(screen):
     #groups = {}
     #groups['all_sprites'] = all_sprites
     # Cria Sprite do jogador
-    player = Rato1(assets['rato1'], 10, 2, blocks,fogo,water)  # onde spawna
-    player2 = Rato2(assets['rato2'], 12, 4, blocks,fogo,water)
+    player = Rato1(assets[RATO1], 10, 2, blocks,fogo,water)  # onde spawna
+    player2 = Rato2(assets[RATO2], 12, 4, blocks,fogo,water)
 
     # Cria tiles de acordo com o mapa
     for row in range(len(MAP)):
@@ -281,28 +214,12 @@ def game_screen(screen):
                 tile = Tile(assets[tile_type], row, column)
                 all_sprites.add(tile)
                 blocks.add(tile)
-            if tile_type == FOGO:
-                tile = Tile(assets[tile_type], row, column)
-                all_sprites.add(tile)
+            elif tile_type == FOGO:
                 fogo.add(tile)
-            if tile_type == WATER:
-                tile = Tile(assets[tile_type], row, column)
-                all_sprites.add(tile)
+            elif tile_type == WATER:
                 water.add(tile)
             
-            
-
     all_sprites.add(player,player2)
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -355,14 +272,6 @@ def game_screen(screen):
         #window.blit(assets['rato2'], (10, 10))
         #window.blit(assets['background'], (0, 0))
         pygame.display.update() 
-    # Nome do jogo
-pygame.display.set_caption(TITULO)
-# Imprime instruções
-print('*' * len(TITULO))
-print(TITULO.upper())
-print('*' * len(TITULO))
-print('Utilize as setas do teclado para andar e pular.')
-# Comando para evitar travamentos.
 try:
     game_screen(screen)
 finally:

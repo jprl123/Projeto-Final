@@ -3,21 +3,27 @@ from os import path
 
 
 #Estabelece a pasta que contem as figuras e sons.
-IMG_DIR = path.join(path.dirname(__file__), 'assets', 'img')
-SND_DIR = path.join(path.dirname(__file__), 'assets', 'snd')
-FNT_DIR = path.join(path.dirname(__file__), 'assets', 'font')
+img_dir = path.join(path.dirname(__file__), 'assets\img')
 
+RATO1 = 'rato1_img'
+RATO2 = 'rato2_img'
+QUEIJO = 'queijo_img'
+BACKGROUND = 'background_img'
+BLOCK = 0
+FOGO = 1
+WATER = 2
+EMPTY = -1
 
 
 # Dados gerais do jogo.
-
-WIDTH = 960 # Largura da tela
-HEIGHT = 1280 # Altura da tela
+WIDTH = 1920 # Largura da tela
+HEIGHT = 1080 # Altura da tela
 FPS = 60 # Frames por segundo
 
+
 # Define tamanhos
-RATO_WIDTH = 50 #TROCAR VALORES
-RATO_HEIGHT = 38
+RATO_HEIGHT = 50
+RATO_WIDTH = 25
 QUEIJO_WIDTH = 50
 QUEIJO_HEIGHT = 38
 
@@ -29,11 +35,20 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 
-
-
 # Estados para controle do fluxo da aplicação
 INIT = 0
 GAME = 1
 QUIT = 2
 
+#define os FPS
+FPS = 30 
+
+
+TILE_SIZE = 30 # Tamanho de cada tile (cada tile é um quadrado)
+# Define a aceleração da gravidade
+GRAVITY = 3.5
+# Define a velocidade inicial no pulo
+JUMP_SIZE = TILE_SIZE
+# Define a velocidade em x
+SPEED_X = 5
 
