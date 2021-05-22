@@ -17,7 +17,7 @@ pygame.display.set_caption('Hello World!')
 game = True
 
 # Define o mapa com os tipos de tiles
-MAP = mapa_1
+MAP = mapa_2
 
 # Define estados possíveis do jogador
 STILL = 0
