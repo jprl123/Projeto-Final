@@ -4,11 +4,20 @@ from os import path
 
 #Estabelece a pasta que contem as figuras e sons.
 img_dir = path.join(path.dirname(__file__), 'assets\img')
+font_dir = path.join(path.dirname(__file__), 'assets','font')
+snd_dir = path.join(path.dirname(__file__), 'assets\snd')
+
+
 
 RATO1 = 'rato1_img'
 RATO2 = 'rato2_img'
 QUEIJO = 'queijo_img'
 BACKGROUND = 'background_img'
+SCORE_FONT = 'score_font'
+
+
+
+
 BLOCK = 0
 FOGO = 1
 WATER = 2
@@ -24,8 +33,8 @@ FPS = 30 # Frames por segundo
 # Define tamanhos
 RATO_HEIGHT = 50
 RATO_WIDTH = 25
-QUEIJO_WIDTH = 50
-QUEIJO_HEIGHT = 38
+QUEIJO_WIDTH = 100
+QUEIJO_HEIGHT = 100
 
 # Define algumas variáveis com as cores básicas
 WHITE = (255, 255, 255)
