@@ -16,7 +16,7 @@ pygame.display.set_caption('O rato e a rata')
 game = True
 
 # Define o mapa com os tipos de tiles
-MAP = mapa_3
+MAP = mapa_1
 
 # Define estados possíveis do jogador
 STILL = 0
@@ -201,14 +201,26 @@ class Rato2(pygame.sprite.Sprite):
             self.speedy -= JUMP_SIZE
             self.state = JUMPING
 class Queijo(pygame.sprite.Sprite):
-    def __init__(self,queijo_img,x, y):
+    def __init__(self,queijo_img, x, y):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
         self.image = queijo_img
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
-        self.state = STILL
-        
+        self.pos = vec (x, y)
+        self.rect.center = self.pos
+    def update(self):    
+        if pygame.sprite.collide_rect(self, player, player2):
+        #check what kind of box it was
+            if self.image == 'score':
+                player.score += 100
+                player2.score += 100
+            self.kill()            
+          
+
+
+
+
 
 clock = pygame.time.Clock()
 def game_screen(screen):
@@ -225,6 +237,8 @@ def game_screen(screen):
     blocks = pygame.sprite.Group()
     fogo = pygame.sprite.Group()
     water = pygame.sprite.Group()
+    Queijo_group = pygame.sprite.Group() 
+    Queijo_group.update()
 
     
     #groups = {}
