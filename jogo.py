@@ -176,7 +176,7 @@ class Rato2(pygame.sprite.Sprite):
                 self.rect.left = collision.rect.right
         
         #colisão para quando tocar no fogo
-        hitfogo = pygame.sprite.spritecollide(self,self.fogo,False)
+        hitfogo = pygame.sprite.spritecollide(self,self.fogo, False)
         for collision in hitfogo:
             # Estava indo para baixo
             if self.speedy > 0:
@@ -222,8 +222,8 @@ def game_screen(screen):
     #groups = {}
     #groups['all_sprites'] = all_sprites
     # Cria Sprite do jogador
-    player = Rato1(assets[RATO1], 5, 2, blocks,fogo,water)  # onde spawna
-    player2 = Rato2(assets[RATO2], 5, 62, blocks,fogo,water)
+    player = Rato2(assets[RATO2], 5, 62, blocks,fogo,water)  # onde spawna
+    player2 = Rato1(assets[RATO1], 5, 2, blocks,fogo,water)
 
     # Cria os blocos de acordo com o mapa
     for row in range(len(MAP)):
@@ -296,12 +296,11 @@ def game_screen(screen):
         all_sprites.draw(screen)
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
-        #window.blit(assets['rato1'], (10, 10))
         #window.blit(assets['rato2'], (10, 10))
+        #window.blit(assets['rato1'], (10, 10))
         #window.blit(assets['background'], (0, 0))
         pygame.display.update() 
 try:
     game_screen(screen)
 finally:
     pygame.quit()
-

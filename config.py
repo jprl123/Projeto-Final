@@ -18,7 +18,7 @@ EMPTY = -1
 # Dados gerais do jogo.
 WIDTH = 1920 # Largura da tela
 HEIGHT = 1080 # Altura da tela
-FPS = 60 # Frames por segundo
+FPS = 30 # Frames por segundo
 
 
 # Define tamanhos
@@ -39,9 +39,6 @@ YELLOW = (255, 255, 0)
 INIT = 0
 GAME = 1
 QUIT = 2
-
-#define os FPS
-FPS = 30 
 
 
 TILE_SIZE = 30 # Tamanho de cada tile (cada tile é um quadrado)
