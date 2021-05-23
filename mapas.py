@@ -11,6 +11,34 @@ def espelha_mapa(l):
             else:
                 l[a].append(l_2[a][b])
     return l
+# Transforma um excel salvo em txt nas configurações de obstáculos da fase
+def excel_txt2mapa(file_name):
+    with open(file_name, 'r') as file:
+        file = file.readlines()
+        f = []
+        for linha in range(len(file)):
+            f.append([])
+            c = 0
+            while c < len(file[linha]):
+                if file[linha][c] != '\t':
+                    if file[linha][c] != '\n':
+                        if file[linha][c] == '-':
+                            f[linha].append(file[linha][c]+file[linha][c+1])
+                            c += 1
+                        else:
+                            f[linha].append(file[linha][c])
+                c += 1
+            i = 0
+            while i < len(f):
+                if f[i] == []:
+                    f.remove(f[i])
+                else:
+                    i += 1
+    for linha in f:
+        for num in range(len(linha)):
+            linha[num] = int(linha[num])
+    f = espelha_mapa(f)
+    return f
 
 BLOCK = 0
 FIRE = 1
@@ -93,3 +121,4 @@ mapa_2 = espelha_mapa([
 [BLOCK, WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK],
 [BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK]
 ])
+
