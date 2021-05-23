@@ -16,7 +16,7 @@ pygame.display.set_caption('O rato e a rata')
 game = True
 
 # Define o mapa com os tipos de tiles
-MAP = mapa_2
+MAP = mapa_3
 
 # Define estados possíveis do jogador
 STILL = 0
