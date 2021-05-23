@@ -25,7 +25,7 @@ FALLING = 2
 # Class que representa os blocos do cenário
 class Tile(pygame.sprite.Sprite):
     # Construtor da classe.
-    def __init__(self, tile_img, row, column):
+    def __init__(self, tile_img, x, y):
         # Construtor da classe pai (Sprite).
         pygame.sprite.Sprite.__init__(self)
         # Aumenta o tamanho do tile.
@@ -35,12 +35,12 @@ class Tile(pygame.sprite.Sprite):
         # Detalhes sobre o posicionamento.
         self.rect = self.image.get_rect()
         # Posiciona o tile
-        self.rect.x = TILE_SIZE * column
-        self.rect.y = TILE_SIZE * row
+        self.rect.x = TILE_SIZE * y
+        self.rect.y = TILE_SIZE * x
 
 
 class Rato1(pygame.sprite.Sprite):
-    def __init__(self,player_img,row,column,blocks,fogo,water):
+    def __init__(self,player_img,x,y,blocks,fogo,water):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
         self.image = player_img
@@ -51,8 +51,8 @@ class Rato1(pygame.sprite.Sprite):
         self.fogo = fogo
         self.water = water
         # row é o índice da linha embaixo do personagem
-        self.rect.x = column * TILE_SIZE
-        self.rect.bottom = row * TILE_SIZE
+        self.rect.x = y * TILE_SIZE
+        self.rect.bottom = x * TILE_SIZE
         self.speedx = 0
         self.speedy = 0
 
@@ -111,7 +111,7 @@ class Rato1(pygame.sprite.Sprite):
             self.state = JUMPING
 
 class Rato2(pygame.sprite.Sprite):
-    def __init__(self,player2_img,row, column, blocks,fogo,water):
+    def __init__(self,player2_img,x, y, blocks,fogo,water):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
         self.image = player2_img
@@ -122,8 +122,8 @@ class Rato2(pygame.sprite.Sprite):
         self.fogo = fogo
         self.water = water
         # row é o índice da linha embaixo do personagem
-        self.rect.x = column * TILE_SIZE
-        self.rect.bottom = row * TILE_SIZE
+        self.rect.x = y * TILE_SIZE
+        self.rect.bottom = x * TILE_SIZE
         self.speedx = 0
         self.speedy = 0
 
@@ -200,7 +200,15 @@ class Rato2(pygame.sprite.Sprite):
         if self.state == STILL:
             self.speedy -= JUMP_SIZE
             self.state = JUMPING
-
+class Queijo(pygame.sprite.Sprite):
+    def __init__(self,queijo_img,x, y):
+        # Construtor da classe mãe (Sprite).
+        pygame.sprite.Sprite.__init__(self)
+        self.image = queijo_img
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.state = STILL
+        
 
 clock = pygame.time.Clock()
 def game_screen(screen):
@@ -226,19 +234,19 @@ def game_screen(screen):
     player2 = Rato1(assets[RATO1], 5, 2, blocks,fogo,water)
 
     # Cria os blocos de acordo com o mapa
-    for row in range(len(MAP)):
-        for column in range(len(MAP[row])):
-            tile_type = MAP[row][column]
+    for x in range(len(MAP)):
+        for y in range(len(MAP[x])):
+            tile_type = MAP[x][y]
             if tile_type == BLOCK:
-                tile = Tile(assets[tile_type], row, column)
+                tile = Tile(assets[tile_type], x, y)
                 all_sprites.add(tile)
                 blocks.add(tile)
             elif tile_type == FOGO:
-                tile = Tile(assets[tile_type], row, column)
+                tile = Tile(assets[tile_type], x, y)
                 all_sprites.add(tile)
                 fogo.add(tile)
             elif tile_type == WATER:
-                tile = Tile(assets[tile_type], row, column)
+                tile = Tile(assets[tile_type], x, y)
                 all_sprites.add(tile)
                 water.add(tile)
             
