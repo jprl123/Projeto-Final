@@ -103,13 +103,13 @@ class Rato1(pygame.sprite.Sprite):
             # Estava indo para a esquerda
             elif self.speedx < 0:
                 self.rect.left = collision.rect.right
-        #colisão para quando tocar no fogo
+        #colisão para quando tocar no agua
         hitagua = pygame.sprite.spritecollide(self,self.water, False)
         for collision1 in hitagua:
             print('colidiu')
             # Estava indo para baixo
-            self.rect.x = 62
-            self.rect.y = 5
+            self.rect.x = 2 * TILE_SIZE
+            self.rect.y = 2 * TILE_SIZE
 
 
     
@@ -189,9 +189,8 @@ class Rato2(pygame.sprite.Sprite):
         hitfogo = pygame.sprite.spritecollide(self,self.fogo, False)
         for collision2 in hitfogo:
             print('colidiu')
-            self.kill()
-        # self.rect.x = 10
-        # self.rect.y = 22
+            self.rect.x = 60 * TILE_SIZE
+            self.rect.y = 2 * TILE_SIZE
 
             
         
@@ -244,8 +243,8 @@ def game_screen(screen):
 
 
     # Cria Sprite do jogador
-    player2 = Rato2(assets[RATO2], 5, 62, blocks,fogo,water)  # onde spawna
     player1 = Rato1(assets[RATO1], 5, 2, blocks,fogo,water)
+    player2 = Rato2(assets[RATO2], 5, 62, blocks,fogo,water)  # onde spawna
 
     # Cria os blocos de acordo com o mapa
     for x in range(len(MAP)):
