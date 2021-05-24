@@ -289,6 +289,7 @@ def game_screen(screen):
     DONE = 1
     score = 0
     state = PLAYING
+    
     while state != DONE:
         assets = load_assets()
         clock.tick(FPS)
