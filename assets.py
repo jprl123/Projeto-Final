@@ -22,8 +22,8 @@ def load_assets():
     # Carrega os sons do jogo
     pygame.mixer.music.load(os.path.join(snd_dir, 'Tetris.ogg'))
     pygame.mixer.music.set_volume(0.4)
-    #assets['pega_queijo'] = pygame.mixer.Sound('assets/snd/expl3.wav')
-    #assets['passar de fase'] = pygame.mixer.Sound('assets/snd/expl6.wav')
-    #assets['score'] = pygame.mixer.Sound('assets/snd/pew.wav')
+    assets[FASE] = pygame.mixer.Sound(os.path.join(snd_dir, 'uepa.wav'))
+    assets[JUMP] = pygame.mixer.Sound(os.path.join(snd_dir, 'rapaz.wav'))
+    #assets[PEGA_QUEIJO] = pygame.mixer.Sound('assets/snd/expl3.wav')
     return assets
 

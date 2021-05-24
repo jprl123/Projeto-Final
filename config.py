@@ -14,6 +14,9 @@ RATO2 = 'rato2_img'
 QUEIJO = 'queijo_img'
 BACKGROUND = 'background_img'
 SCORE_FONT = 'score_font'
+JUMP = 'rapaz_snd'
+FASE = 'uepa_snd'
+
 
 
 

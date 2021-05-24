@@ -4,7 +4,9 @@ from mapas import *
 import pygame
 from config  import *
 from assets import *
+
 pygame.init()
+pygame.mixer.init()
 
 # ----- Gera tela principal
 
@@ -193,13 +195,16 @@ class Rato2(pygame.sprite.Sprite):
             self.rect.y = 2 * TILE_SIZE
 
             
-        
         # Método que faz o personagem pular
     def jump(self):
         # Só pode pular se ainda não estiver pulando ou caindo
         if self.state == STILL:
             self.speedy -= JUMP_SIZE
             self.state = JUMPING
+
+
+
+
 class Queijo(pygame.sprite.Sprite):
     def __init__(self,queijo_img, x, y):
         # Construtor da classe mãe (Sprite).
@@ -296,8 +301,10 @@ def game_screen(screen):
                         player2.speedx += 8
                     elif event.key == pygame.K_UP:
                         player1.jump()
+                        assets[JUMP].play()
                     elif event.key == pygame.K_w:  
                         player2.jump()
+                        assets[JUMP].play()
                 # Verifica se soltou alguma tecla.
                 if event.type == pygame.KEYUP:
                     # Dependendo da tecla, altera a velocidade.
