@@ -106,20 +106,13 @@ class Rato1(pygame.sprite.Sprite):
         #colisão para quando tocar no fogo
         hitagua = pygame.sprite.spritecollide(self,self.water, False)
         for collision1 in hitagua:
+            print('colidiu')
             # Estava indo para baixo
-            if self.speedy > 0:
-                self.rect.bottom = collision1.rect.top
-                # Se colidiu com algo, para de cair
-                self.speedy = 0
-                # Atualiza o estado para parado
-                self.state = STILL
-            # Estava indo para cima
-            elif self.speedy < 0:
-                self.rect.top = collision1.rect.bottom
-                # Se colidiu com algo, para de cair
-                self.speedy = 0
-                # Atualiza o estado para parado
-                self.state = STILL
+            self.rect.x = 62
+            self.rect.y = 5
+
+
+    
         # Método que faz o personagem pular
     def jump(self):
         # Só pode pular se ainda não estiver pulando ou caindo
@@ -194,21 +187,12 @@ class Rato2(pygame.sprite.Sprite):
         
         #colisão para quando tocar no fogo
         hitfogo = pygame.sprite.spritecollide(self,self.fogo, False)
-        for collision in hitfogo:
-            # Estava indo para baixo
-            if self.speedy > 0:
-                self.rect.bottom = collision.rect.top
-                # Se colidiu com algo, para de cair
-                self.speedy = 0
-                # Atualiza o estado para parado
-                self.state = STILL
-            # Estava indo para cima
-            elif self.speedy < 0:
-                self.rect.top = collision.rect.bottom
-                # Se colidiu com algo, para de cair
-                self.speedy = 0
-                # Atualiza o estado para parado
-                self.state = STILL
+        for collision2 in hitfogo:
+            print('colidiu')
+            self.kill()
+        # self.rect.x = 10
+        # self.rect.y = 22
+
             
         
         # Método que faz o personagem pular
@@ -230,7 +214,7 @@ class Queijo(pygame.sprite.Sprite):
         if pygame.sprite.collide_rect(self, Rato1, Rato2):
         #check what kind of box it was
             if self.image == 'score':
-                player.score += 100
+                self.score += 100
             self.kill()            
           
 
@@ -260,8 +244,8 @@ def game_screen(screen):
 
 
     # Cria Sprite do jogador
-    player = Rato2(assets[RATO2], 5, 62, blocks,fogo,water)  # onde spawna
-    player2 = Rato1(assets[RATO1], 5, 2, blocks,fogo,water)
+    player2 = Rato2(assets[RATO2], 5, 62, blocks,fogo,water)  # onde spawna
+    player1 = Rato1(assets[RATO1], 5, 2, blocks,fogo,water)
 
     # Cria os blocos de acordo com o mapa
     for x in range(len(MAP)):
@@ -280,7 +264,7 @@ def game_screen(screen):
                 all_sprites.add(tile)
                 water.add(tile)
             
-    all_sprites.add(player,player2)
+    all_sprites.add(player1,player2)
 
     #if len(Rato2.update())
 
@@ -289,7 +273,7 @@ def game_screen(screen):
     DONE = 1
     score = 0
     state = PLAYING
-    
+    pygame.mixer.music.play(loops=-1)
     while state != DONE:
         assets = load_assets()
         clock.tick(FPS)
@@ -304,24 +288,24 @@ def game_screen(screen):
                 if event.type == pygame.KEYDOWN:
                     # Dependendo da tecla, altera a velocidade.
                     if event.key == pygame.K_LEFT:
-                        player.speedx -= 8
+                        player1.speedx -= 8
                     if event.key == pygame.K_RIGHT:
-                        player.speedx += 8
+                        player1.speedx += 8
                     if event.key == pygame.K_a:
                         player2.speedx -= 8
                     if event.key == pygame.K_d:
                         player2.speedx += 8
                     elif event.key == pygame.K_UP:
-                        player.jump()
+                        player1.jump()
                     elif event.key == pygame.K_w:  
                         player2.jump()
                 # Verifica se soltou alguma tecla.
                 if event.type == pygame.KEYUP:
                     # Dependendo da tecla, altera a velocidade.
                     if event.key == pygame.K_LEFT:
-                        player.speedx += 8
+                        player1.speedx += 8
                     if event.key == pygame.K_RIGHT:
-                        player.speedx -= 8
+                        player1.speedx -= 8
                     if event.key == pygame.K_a:
                         player2.speedx += 8
                     if event.key == pygame.K_d:
