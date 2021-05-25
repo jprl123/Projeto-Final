@@ -28,16 +28,16 @@ EMPTY = -1
 
 
 # Dados gerais do jogo.
-WIDTH = 1920 # Largura da tela
-HEIGHT = 1080 # Altura da tela
-FPS = 30 # Frames por segundo
+WIDTH = 1920//2 # Largura da tela
+HEIGHT = 1080//2 # Altura da tela
+FPS = 45 # Frames por segundo
 
 
 # Define tamanhos
 RATO_HEIGHT = 50
 RATO_WIDTH = 25
-QUEIJO_WIDTH = 100
-QUEIJO_HEIGHT = 100
+QUEIJO_WIDTH = 30
+QUEIJO_HEIGHT = 30
 
 # Define algumas variáveis com as cores básicas
 WHITE = (255, 255, 255)
