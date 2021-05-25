@@ -4,6 +4,7 @@ from mapas import *
 import pygame
 from config  import *
 from assets import *
+import random
 
 pygame.init()
 pygame.mixer.init()
@@ -18,7 +19,7 @@ pygame.display.set_caption('O rato e a rata')
 game = True
 
 # Define o mapa com os tipos de tiles
-MAP = mapa_3
+MAP = Mapa('mapa3.txt').mapa
 
 # Define estados possíveis do jogador
 STILL = 0
@@ -212,10 +213,12 @@ class Queijo(pygame.sprite.Sprite):
         self.image = queijo_img
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
-        self.rect.midtop = (WIDTH / 2,  1000)
+        self.rect.midtop = (x*TILE_SIZE,y* TILE_SIZE)
 
-    def update(self):    
-        if pygame.sprite.collide_rect(self, Rato1, Rato2):
+    def update(self):
+        if 1 ==1:
+            return 
+        if pygame.sprite.spritecollide(self, False):
         #check what kind of box it was
             if self.image == 'score':
                 self.score += 100
@@ -243,7 +246,14 @@ def game_screen(screen):
     fogo = pygame.sprite.Group()
     water = pygame.sprite.Group()
     Queijo_group = pygame.sprite.Group() 
-    Queijo_group.update()
+    while len(Queijo_group) <= 10:
+        x = random.randint(2,30)
+        y = random.randint(2,15)
+        if MAP[x][y] == EMPTY:
+            Q = Queijo(assets[QUEIJO], x, y)
+            Queijo_group.add(Q)
+            all_sprites.add(Q)
+        
     
 
 
