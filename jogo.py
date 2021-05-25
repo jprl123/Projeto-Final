@@ -258,7 +258,7 @@ def game_screen(screen):
 
 
     # Cria Sprite do jogador
-    player1 = Rato1(assets[RATO1], 5, 2, blocks,fogo,water)
+    player1 = Rato1(assets[RATO1], 5, 1, blocks,fogo,water)
     player2 = Rato2(assets[RATO2], 5, 62, blocks,fogo,water)  # onde spawna
 
     # Cria os blocos de acordo com o mapa
@@ -302,13 +302,13 @@ def game_screen(screen):
                 if event.type == pygame.KEYDOWN:
                     # Dependendo da tecla, altera a velocidade.
                     if event.key == pygame.K_LEFT:
-                        player1.speedx -= 8
+                        player1.speedx -= SPEED_X
                     if event.key == pygame.K_RIGHT:
-                        player1.speedx += 8
+                        player1.speedx += SPEED_X
                     if event.key == pygame.K_a:
-                        player2.speedx -= 8
+                        player2.speedx -= SPEED_X
                     if event.key == pygame.K_d:
-                        player2.speedx += 8
+                        player2.speedx += SPEED_X
                     elif event.key == pygame.K_UP:
                         player1.jump()
                         assets[JUMP].play()
@@ -319,13 +319,13 @@ def game_screen(screen):
                 if event.type == pygame.KEYUP:
                     # Dependendo da tecla, altera a velocidade.
                     if event.key == pygame.K_LEFT:
-                        player1.speedx += 8
+                        player1.speedx += SPEED_X
                     if event.key == pygame.K_RIGHT:
-                        player1.speedx -= 8
+                        player1.speedx -= SPEED_X
                     if event.key == pygame.K_a:
-                        player2.speedx += 8
+                        player2.speedx += SPEED_X
                     if event.key == pygame.K_d:
-                        player2.speedx -= 8
+                        player2.speedx -= SPEED_X
             
         all_sprites.update()
 

@@ -31,13 +31,13 @@ EMPTY = -1
 WIDTH = 1920//2 # Largura da tela
 HEIGHT = 1080//2 # Altura da tela
 FPS = 45 # Frames por segundo
-
+TILE_SIZE = 30//2 # Tamanho de cada tile (cada tile é um quadrado)
 
 # Define tamanhos
-RATO_HEIGHT = 50
-RATO_WIDTH = 25
-QUEIJO_WIDTH = 30
-QUEIJO_HEIGHT = 30
+RATO_HEIGHT = TILE_SIZE*2 #int(50*(2/3))
+RATO_WIDTH = TILE_SIZE #int(25*(2/3))
+QUEIJO_WIDTH = TILE_SIZE
+QUEIJO_HEIGHT = TILE_SIZE
 
 # Define algumas variáveis com as cores básicas
 WHITE = (255, 255, 255)
@@ -52,10 +52,8 @@ INIT = 0
 GAME = 1
 QUIT = 2
 
-
-TILE_SIZE = 30 # Tamanho de cada tile (cada tile é um quadrado)
 # Define a aceleração da gravidade
-GRAVITY = 2.5
+GRAVITY = 2
 # Define a velocidade inicial no pulo
 JUMP_SIZE = TILE_SIZE
 # Define a velocidade em x
