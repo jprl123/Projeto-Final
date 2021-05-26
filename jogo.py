@@ -9,11 +9,13 @@ import random
 pygame.init()
 pygame.mixer.init()
 
-# ----- Gera tela principal
+# ----- Gera tela principal e icone de jogo
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('O rato e a rata')
 
+gameIcon = pygame.image.load(path.join(img_dir, 'queijo.png'))
+pygame.display.set_icon(gameIcon)
 
 # ----- Inicia estruturas de dados
 game = True
