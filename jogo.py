@@ -136,6 +136,7 @@ class Rato2(pygame.sprite.Sprite):
         self.blocks = blocks
         self.fogo = fogo
         self.water = water
+
         # row é o índice da linha embaixo do personagem
         self.rect.x = y * TILE_SIZE
         self.rect.bottom = x * TILE_SIZE
@@ -193,9 +194,11 @@ class Rato2(pygame.sprite.Sprite):
         #colisão para quando tocar no fogo
         hitfogo = pygame.sprite.spritecollide(self,self.fogo, False)
         for collision2 in hitfogo:
-            print('colidiu')
             self.rect.x = 2 * TILE_SIZE
             self.rect.y = 2 * TILE_SIZE
+            #self.lives -= 1
+        
+
             
 
             
@@ -353,12 +356,12 @@ def game_screen(screen):
         #desenhando o score
         text_surface = assets[SCORE_FONT].render("{:08d}".format(score), True, BLUE)
         text_rect = text_surface.get_rect()
-        text_rect.midtop = (WIDTH / 2, 1000//2)
+        text_rect.midtop = (WIDTH / 2, 1000)
         screen.blit(text_surface, text_rect)
 
 
         # Desenhando as vidas
-        text_surface = assets[SCORE_FONT].render(chr(9829) * lives, True, RED)
+        text_surface = assets[SCORE_FONT].render(chr(9829) * player2.lives, True, RED)
         text_rect = text_surface.get_rect()
         text_rect.midtop = (WIDTH / 2, 970)
         screen.blit(text_surface, text_rect)
