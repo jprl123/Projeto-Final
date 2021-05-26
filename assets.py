@@ -23,7 +23,8 @@ def load_assets():
     pygame.mixer.music.load(os.path.join(snd_dir, 'Tetris.ogg'))
     pygame.mixer.music.set_volume(0.4)
     assets[FASE] = pygame.mixer.Sound(os.path.join(snd_dir, 'uepa.wav'))
-    assets[JUMP] = pygame.mixer.Sound(os.path.join(snd_dir, 'rapaz.wav'))
+    assets[JUMP] = pygame.mixer.Sound(os.path.join(snd_dir, 'jump.wav'))
+    #assets[JUMP] = pygame.mixer.Sound(os.path.join(snd_dir, 'rapaz.wav'))
     #assets[PEGA_QUEIJO] = pygame.mixer.Sound('assets/snd/expl3.wav')
     return assets
 
