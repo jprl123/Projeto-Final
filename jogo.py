@@ -217,16 +217,10 @@ class Queijo(pygame.sprite.Sprite):
         self.image = queijo_img
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
-        self.rect.midtop = (x*TILE_SIZE,y* TILE_SIZE)
+        self.rect.midtop = (x,y)
 
     def update(self):
-        if 1 ==1:
-            return 
-        if pygame.sprite.spritecollide(self, False):
-        #check what kind of box it was
-            if self.image == 'score':
-                self.score += 100
-            self.kill()            
+        pass          
           
 
 
@@ -252,7 +246,10 @@ def game_screen(screen):
         x = random.randint(2,30)
         y = random.randint(2,15)
         if MAP[x][y] == EMPTY:
-            Q = Queijo(assets[QUEIJO], x, y)
+            Q = Queijo(assets[QUEIJO], x*TILE_SIZE, y*TILE_SIZE)
+            Queijo_group.add(Q)
+            all_sprites.add(Q)
+            Q = Queijo(assets[QUEIJO], WIDTH-x*TILE_SIZE, y*TILE_SIZE)
             Queijo_group.add(Q)
             all_sprites.add(Q)
         
@@ -336,9 +333,19 @@ def game_screen(screen):
         if lives == 0:
                     state = DONE    
         all_sprites.update()
+        
+        hit1=pygame.sprite.spritecollide(player1,Queijo_group, True)
+        if len(hit1) > 0:
+            score+=100
+        hit2=pygame.sprite.spritecollide(player2,Queijo_group, True)
+        if len(hit2) > 0: 
+            score+=100  
+            
+            
+                 
 
-    
         # A cada loop, redesenha o fundo e os sprites
+
         screen.fill(BLACK)  
         screen.blit(assets[BACKGROUND], (0, 0))
         all_sprites.draw(screen)
@@ -346,7 +353,7 @@ def game_screen(screen):
         #desenhando o score
         text_surface = assets[SCORE_FONT].render("{:08d}".format(score), True, BLUE)
         text_rect = text_surface.get_rect()
-        text_rect.midtop = (WIDTH / 2, 1000)
+        text_rect.midtop = (WIDTH / 2, 1000//2)
         screen.blit(text_surface, text_rect)
 
 
