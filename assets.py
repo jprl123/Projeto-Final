@@ -13,7 +13,7 @@ def load_assets():
     assets[RATO1] = pygame.transform.scale(assets[RATO1],(RATO_WIDTH, RATO_HEIGHT))
     assets[RATO2] = pygame.image.load(path.join(img_dir, 'rato2.png')).convert_alpha()
     assets[RATO2] = pygame.transform.scale(assets[RATO2],(RATO_WIDTH, RATO_HEIGHT))
-    assets[QUEIJO] = pygame.image.load(path.join(img_dir, 'queijo.png')).convert()
+    assets[QUEIJO] = pygame.image.load(path.join(img_dir, 'queijo.png')).convert_alpha()
     assets[QUEIJO] = pygame.transform.scale(assets[QUEIJO],(QUEIJO_WIDTH, QUEIJO_HEIGHT))
     assets[BLOCK] = pygame.image.load(path.join(img_dir, 'block.png')).convert()
     assets[FOGO] = pygame.image.load(path.join(img_dir, 'fogo.png')).convert()
