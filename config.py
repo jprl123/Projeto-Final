@@ -28,10 +28,10 @@ EMPTY = -1
 
 
 # Dados gerais do jogo.
-WIDTH = 1920//2 # Largura da tela
-HEIGHT = 1080//2 # Altura da tela
+WIDTH = 1920 # Largura da tela
+HEIGHT = 1080 # Altura da tela
 FPS = 45 # Frames por segundo
-TILE_SIZE = 30//2 # Tamanho de cada tile (cada tile é um quadrado)
+TILE_SIZE = 30 # Tamanho de cada tile (cada tile é um quadrado)
 
 # Define tamanhos
 RATO_HEIGHT = TILE_SIZE*2 #int(50*(2/3))
@@ -53,9 +53,9 @@ GAME = 1
 QUIT = 2
 
 # Define a aceleração da gravidade
-GRAVITY = 2
+GRAVITY = 3
 # Define a velocidade inicial no pulo
 JUMP_SIZE = TILE_SIZE
 # Define a velocidade em x
-SPEED_X = 5
+SPEED_X = 10
 
