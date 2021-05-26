@@ -196,6 +196,7 @@ class Rato2(pygame.sprite.Sprite):
             print('colidiu')
             self.rect.x = 2 * TILE_SIZE
             self.rect.y = 2 * TILE_SIZE
+            
 
             
         # Método que faz o personagem pular
@@ -204,6 +205,7 @@ class Rato2(pygame.sprite.Sprite):
         if self.state == STILL:
             self.speedy -= JUMP_SIZE
             self.state = JUMPING
+            
 
 
 
@@ -234,20 +236,18 @@ clock = pygame.time.Clock()
 def game_screen(screen):
     # Variável para o ajuste de velocidade
     clock.tick(FPS)
-
     # Carrega assets
     assets = load_assets()
-
     # Cria um grupo de todos os sprites.
     all_sprites = pygame.sprite.Group()
     # Cria um grupo somente com os sprites de bloco.
-    # Sprites de block são aqueles que impedem o movimento do jogador
     groups = {}
     groups['all_sprites'] = all_sprites
     blocks = pygame.sprite.Group()
     fogo = pygame.sprite.Group()
     water = pygame.sprite.Group()
     Queijo_group = pygame.sprite.Group() 
+    
     while len(Queijo_group) <= 10:
         x = random.randint(2,30)
         y = random.randint(2,15)
@@ -287,8 +287,11 @@ def game_screen(screen):
 
     PLAYING = 0
     DONE = 1
-    score = 0
+
     state = PLAYING
+    score = 0
+    lives = 3
+    
     pygame.mixer.music.play(loops=-1)
     while state != DONE:
         assets = load_assets()
@@ -314,6 +317,7 @@ def game_screen(screen):
                     elif event.key == pygame.K_UP:
                         player1.jump()
                         assets[JUMP].play()
+                        #lives -= 1
                     elif event.key == pygame.K_w:  
                         player2.jump()
                         assets[JUMP].play()
@@ -328,12 +332,13 @@ def game_screen(screen):
                         player2.speedx += SPEED_X
                     if event.key == pygame.K_d:
                         player2.speedx -= SPEED_X
-            
+        #verifica se tem vida
+        if lives == 0:
+                    state = DONE    
         all_sprites.update()
 
     
         # A cada loop, redesenha o fundo e os sprites
-        #atualiza a tela
         screen.fill(BLACK)  
         screen.blit(assets[BACKGROUND], (0, 0))
         all_sprites.draw(screen)
@@ -341,7 +346,14 @@ def game_screen(screen):
         #desenhando o score
         text_surface = assets[SCORE_FONT].render("{:08d}".format(score), True, BLUE)
         text_rect = text_surface.get_rect()
-        text_rect.midtop = (WIDTH / 2,  1000)
+        text_rect.midtop = (WIDTH / 2, 1000)
+        screen.blit(text_surface, text_rect)
+
+
+        # Desenhando as vidas
+        text_surface = assets[SCORE_FONT].render(chr(9829) * lives, True, RED)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (WIDTH / 2, 970)
         screen.blit(text_surface, text_rect)
         
 
