@@ -19,6 +19,8 @@ def load_assets():
     assets[FOGO] = pygame.image.load(path.join(img_dir, 'fogo.png')).convert()
     assets[WATER] = pygame.image.load(path.join(img_dir, 'water.png')).convert()
     assets[SCORE_FONT] = pygame.font.Font(os.path.join(font_dir, 'PressStart2P.ttf'), 28)
+    assets[MENU] = pygame.image.load(path.join(img_dir, 'Menu inicial.png')).convert()
+    assets[MENU] = pygame.transform.scale(assets[MENU],(WIDTH,HEIGHT))
     # Carrega os sons do jogo
     pygame.mixer.music.load(os.path.join(snd_dir, 'Tetris.ogg'))
     pygame.mixer.music.set_volume(0.4)

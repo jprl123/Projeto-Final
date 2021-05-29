@@ -267,7 +267,7 @@ def game_screen(screen):
 
     PLAYING = 0
     DONE = 1
-
+    start = True
     state = PLAYING
     score = 0
     lives = 3
@@ -276,6 +276,28 @@ def game_screen(screen):
     while state != DONE:
         assets = load_assets()
         clock.tick(FPS)
+        while start:
+            # ----- Trata eventos
+            for event in pygame.event.get():
+                # ----- Verifica consequências
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        start == False   
+            screen.fill((0, 0, 0))
+            screen.blit(assets[MENU], (0,0))
+        # ----- Gera saídas
+        # ----- Atualiza estado do jogo
+            pygame.display.update()
+
+
+
+
+
+
+
         # ----- Trata eventos
         for event in pygame.event.get():
             # ----- Verifica consequências

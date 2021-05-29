@@ -16,6 +16,7 @@ BACKGROUND = 'background_img'
 SCORE_FONT = 'score_font'
 JUMP = 'rapaz_snd'
 FASE = 'uepa_snd'
+MENU = 'menu_img'
 
 
 
