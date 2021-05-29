@@ -24,10 +24,10 @@ game = True
 MAP = Mapa('mapa3.txt').mapa
 
 # Define estados possíveis do jogador
-STILL = 0
-JUMPING = 1
-FALLING = 2
-# Class que representa os blocos do cenário
+PARADO = 0
+PULANDO = 1
+CAINDO = 2
+#representa os blocos do cenário
 class Tile(pygame.sprite.Sprite):
     # Construtor da classe.
     def __init__(self, tile_img, x, y):
@@ -39,7 +39,7 @@ class Tile(pygame.sprite.Sprite):
         self.image = tile_img
         # Detalhes sobre o posicionamento.
         self.rect = self.image.get_rect()
-        # Posiciona o tile
+        # Posiciona
         self.rect.x = TILE_SIZE * y
         self.rect.y = TILE_SIZE * x
 
@@ -51,79 +51,68 @@ class Rato1(pygame.sprite.Sprite):
         self.image = player_img
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
-        self.state = STILL
+        self.state = PARADO
         self.blocks = blocks
         self.fogo = fogo
         self.water = water
-        # row é o índice da linha embaixo do personagem
         self.rect.x = y * TILE_SIZE
         self.rect.bottom = x * TILE_SIZE
         self.speedx = 0
         self.speedy = 0
-
-        #self.groups = groups
-        #self.assets = assets
-
     def update(self):
-        # Tenta andar em y
         # Atualiza a velocidade aplicando a aceleração da gravidade
         self.speedy += GRAVITY
-        # Atualiza o estado para caindo
+        # faz com que o rato não execute um double jump
         if self.speedy > 0:
-            self.state = FALLING
-        # Atualiza a posição y
+            self.state = CAINDO
+        # Atualiza a posição 
         self.rect.y += self.speedy
-        # Se colidiu com algum bloco, volta para o ponto antes da colisão
-        collisions = pygame.sprite.spritecollide(self, self.blocks, False)
+        # Se colidiu com algum bloco, volta para antes 
+        hitbloco = pygame.sprite.spritecollide(self, self.blocks, False)
         # Corrige a posição do personagem para antes da colisão
-        for collision in collisions:
+        for c in hitbloco:
             # Estava indo para baixo
             if self.speedy > 0:
-                self.rect.bottom = collision.rect.top
-                # Se colidiu com algo, para de cair
+                self.rect.bottom = c.rect.top
+                # Se colidiu para de cair
                 self.speedy = 0
-                # Atualiza o estado para parado
-                self.state = STILL
+                self.state = PARADO
             # Estava indo para cima
             elif self.speedy < 0:
-                self.rect.top = collision.rect.bottom
-                # Se colidiu com algo, para de cair
+                self.rect.top = c.rect.bottom
+                # Se colidiu para de cair
                 self.speedy = 0
-                # Atualiza o estado para parado
-                self.state = STILL
+                self.state = PARADO
         # Tenta andar em x
         self.rect.x += self.speedx
-        # Corrige a posição caso tenha passado do tamanho da janela
+        # Mantem dentro da tela
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
         if self.rect.left < 0:
             self.rect.left = 0
-        elif self.rect.right >= WIDTH:
-            self.rect.right = WIDTH - 1
         # Se colidiu com algum bloco, volta para o ponto antes da colisão
-        collisions = pygame.sprite.spritecollide(self, self.blocks, False)
+        hitbloco = pygame.sprite.spritecollide(self, self.blocks, False)
         # Corrige a posição do personagem para antes da colisão
-        for collision in collisions:
+        for c in hitbloco:
             # Estava indo para a direita
             if self.speedx > 0:
-                self.rect.right = collision.rect.left
+                self.rect.right = c.rect.left
             # Estava indo para a esquerda
             elif self.speedx < 0:
-                self.rect.left = collision.rect.right
+                self.rect.left = c.rect.right
         #colisão para quando tocar no agua
         hitagua = pygame.sprite.spritecollide(self,self.water, False)
-        for collision1 in hitagua:
-            print('colidiu')
-            # Estava indo para baixo
+        for c1 in hitagua:
             self.rect.x = 60 * TILE_SIZE
             self.rect.y = 2 * TILE_SIZE
 
 
-    
         # Método que faz o personagem pular
     def jump(self):
         # Só pode pular se ainda não estiver pulando ou caindo
-        if self.state == STILL:
+        if self.state == PARADO:
             self.speedy -= JUMP_SIZE
-            self.state = JUMPING
+            self.state = PARADO
 
 class Rato2(pygame.sprite.Sprite):
     def __init__(self,player2_img,x,y,blocks,fogo,water):
@@ -132,19 +121,14 @@ class Rato2(pygame.sprite.Sprite):
         self.image = player2_img
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
-        self.state = STILL
+        self.state = PARADO
         self.blocks = blocks
         self.fogo = fogo
         self.water = water
-
-        # row é o índice da linha embaixo do personagem
         self.rect.x = y * TILE_SIZE
         self.rect.bottom = x * TILE_SIZE
         self.speedx = 0
         self.speedy = 0
-
-        #self.groups = groups
-        #self.assets = assets
 
     def update(self):
         # Tenta andar em y
@@ -152,48 +136,47 @@ class Rato2(pygame.sprite.Sprite):
         self.speedy += GRAVITY
         # Atualiza o estado para caindo
         if self.speedy > 0:
-            self.state = FALLING
+            self.state = CAINDO
         # Atualiza a posição y
         self.rect.y += self.speedy
         # Se colidiu com algum bloco, volta para o ponto antes da colisão
-        collisions = pygame.sprite.spritecollide(self,self.blocks,False)
+        hitbloco = pygame.sprite.spritecollide(self,self.blocks,False)
         # Corrige a posição do personagem para antes da colisão
-        for collision in collisions:
+        for c in hitbloco:
             # Estava indo para baixo
             if self.speedy > 0:
-                self.rect.bottom = collision.rect.top
-                # Se colidiu com algo, para de cair
+                self.rect.bottom = c.rect.top
+                # Se colidiu para de cair
                 self.speedy = 0
                 # Atualiza o estado para parado
-                self.state = STILL
+                self.state = PARADO
             # Estava indo para cima
             elif self.speedy < 0:
-                self.rect.top = collision.rect.bottom
-                # Se colidiu com algo, para de cair
+                self.rect.top = c.rect.bottom
+                # Se colidiu para de cair
                 self.speedy = 0
                 # Atualiza o estado para parado
-                self.state = STILL
+                self.state = PARADO
         # Tenta andar em x
         self.rect.x += self.speedx
-        # Corrige a posição caso tenha passado do tamanho da janela
+        # Mantem dentro da tela
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
         if self.rect.left < 0:
             self.rect.left = 0
-        elif self.rect.right >= WIDTH:
-            self.rect.right = WIDTH - 1
         # Se colidiu com algum bloco, volta para o ponto antes da colisão
-        collisions = pygame.sprite.spritecollide(self, self.blocks, False)
+        hitbloco = pygame.sprite.spritecollide(self, self.blocks, False)
         # Corrige a posição do personagem para antes da colisão
-        for collision in collisions:
-            # Estava indo para a direita
+        for c in hitbloco:
+            # verifica os hits em x
             if self.speedx > 0:
-                self.rect.right = collision.rect.left
-            # Estava indo para a esquerda
+                self.rect.right = c.rect.left
             elif self.speedx < 0:
-                self.rect.left = collision.rect.right
+                self.rect.left = c.rect.right
         
         #colisão para quando tocar no fogo
         hitfogo = pygame.sprite.spritecollide(self,self.fogo, False)
-        for collision2 in hitfogo:
+        for c2 in hitfogo:
             self.rect.x = 2 * TILE_SIZE
             self.rect.y = 2 * TILE_SIZE
             #self.lives -= 1
@@ -205,9 +188,9 @@ class Rato2(pygame.sprite.Sprite):
         # Método que faz o personagem pular
     def jump(self):
         # Só pode pular se ainda não estiver pulando ou caindo
-        if self.state == STILL:
+        if self.state == PARADO:
             self.speedy -= JUMP_SIZE
-            self.state = JUMPING
+            self.state = PULANDO
             
 
 
@@ -245,6 +228,7 @@ def game_screen(screen):
     water = pygame.sprite.Group()
     Queijo_group = pygame.sprite.Group() 
     
+    # cria os queijos no mapa
     while len(Queijo_group) <= 10:
         x = random.randint(2,30)
         y = random.randint(2,15)
@@ -252,7 +236,7 @@ def game_screen(screen):
             Q = Queijo(assets[QUEIJO], x*TILE_SIZE, y*TILE_SIZE)
             Queijo_group.add(Q)
             all_sprites.add(Q)
-            Q = Queijo(assets[QUEIJO], WIDTH-x*TILE_SIZE, y*TILE_SIZE)
+            Q = Queijo(assets[QUEIJO], WIDTH-x*TILE_SIZE, y*TILE_SIZE) # espelha do outro lado do mapa
             Queijo_group.add(Q)
             all_sprites.add(Q)
         
@@ -281,9 +265,6 @@ def game_screen(screen):
                 water.add(tile)
             
     all_sprites.add(player1,player2)
-
-    #if len(Rato2.update())
-
 
     PLAYING = 0
     DONE = 1
@@ -361,7 +342,7 @@ def game_screen(screen):
 
 
         # Desenhando as vidas
-        text_surface = assets[SCORE_FONT].render(chr(9829) * player2.lives, True, RED)
+        text_surface = assets[SCORE_FONT].render(chr(9829) *lives, True, RED)
         text_rect = text_surface.get_rect()
         text_rect.midtop = (WIDTH / 2, 970)
         screen.blit(text_surface, text_rect)
