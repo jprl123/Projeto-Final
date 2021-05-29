@@ -8,7 +8,7 @@ font_dir = path.join(path.dirname(__file__), 'assets','font')
 snd_dir = path.join(path.dirname(__file__), 'assets\snd')
 
 
-
+# predefinições para as imagens
 RATO1 = 'rato1_img'
 RATO2 = 'rato2_img'
 QUEIJO = 'queijo_img'
@@ -47,15 +47,15 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 
-# Estados para controle do fluxo da aplicação
+# Estados para controle do fluxo 
 INIT = 0
 GAME = 1
 QUIT = 2
 
-# Define a aceleração da gravidade
+#gravidade
 GRAVITY = 3
-# Define a velocidade inicial no pulo
+#velocidade do pulo
 JUMP_SIZE = TILE_SIZE
-# Define a velocidade em x
+#velocidade em x
 SPEED_X = 10
 
