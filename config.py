@@ -49,8 +49,8 @@ BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 
 # Estados para controle do fluxo 
-INIT = 0
-GAME = 1
+INICIA = 0
+JOGAR = 1
 QUIT = 2
 
 #gravidade

@@ -12,6 +12,12 @@ def init_screen(screen):
     assets = load_assets()
     # Variável para o ajuste de velocidade
     clock = pygame.time.Clock()
+    menu = pygame.image.load(path.join(img_dir, 'Menu inicial.png')).convert()
+    menu_rect = menu.get_rect()
+
+
+
+
     running = True
     while running:
         # Ajusta a velocidade do jogo.
@@ -24,12 +30,12 @@ def init_screen(screen):
                 running = False
 
             if event.type == pygame.KEYUP:
-                state = GAME
+                state = JOGAR
                 running = False
 
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
-        screen.blit(assets[MENU], (0,0))
+        screen.blit(menu, menu_rect)
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
