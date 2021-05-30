@@ -4,17 +4,13 @@ from config  import *
 from assets import *
 import random
 from sprites import *
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('O rato e a rata')
-# ----- Inicia estruturas de dados
-game = True
+
+
 # Define o mapa com os tipos de tiles
 MAP = Mapa('mapa3.txt').mapa
 
-clock = pygame.time.Clock()
 def game_screen(screen):
-    # Variável para o ajuste de velocidade
-    clock.tick(FPS)
+    clock = pygame.time.Clock()
     # Carrega assets
     assets = load_assets()
     # Cria um grupo de todos os sprites.
@@ -61,28 +57,27 @@ def game_screen(screen):
             elif tile_type == WATER:
                 tile = Tile(assets[tile_type], x, y)
                 all_sprites.add(tile)
-                water.add(tile)
-            
+                water.add(tile)    
     all_sprites.add(player1,player2)
 
     PLAYING = 0
     DONE = 1
 
-    state = PLAYING
+    estado = PLAYING
     score = 0
     lives = 3
     
     pygame.mixer.music.play(loops=-1)
-    while state != DONE:
+    while estado != DONE:
         assets = load_assets()
         clock.tick(FPS)
         # ----- Trata eventos
         for event in pygame.event.get():
             # ----- Verifica consequências
             if event.type == pygame.QUIT:
-                state = DONE
+                estado = DONE
             # Só verifica o teclado se está no estado de jogo
-            if state == PLAYING:
+            if estado == PLAYING:
                 # Verifica se apertou alguma tecla.
                 if event.type == pygame.KEYDOWN:
                     # Dependendo da tecla, altera a velocidade.
@@ -114,7 +109,7 @@ def game_screen(screen):
                         player2.speedx -= SPEED_X
         #verifica se tem vida
         if lives == 0:
-                    state = DONE    
+                    estado = DONE    
         all_sprites.update()
         
         hit1=pygame.sprite.spritecollide(player1,Queijo_group, True)
@@ -128,7 +123,6 @@ def game_screen(screen):
                  
 
         # A cada loop, redesenha o fundo e os sprites
-
         screen.fill(BLACK)  
         screen.blit(assets[BACKGROUND], (0, 0))
         all_sprites.draw(screen)
@@ -148,9 +142,4 @@ def game_screen(screen):
         
 
         # Depois de desenhar tudo, inverte o display.
-        pygame.display.flip()
         pygame.display.update() 
-try:
-    game_screen(screen)
-finally:
-    pygame.quit()
