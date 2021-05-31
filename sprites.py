@@ -175,10 +175,6 @@ class Rato2(pygame.sprite.Sprite):
             self.speedy -= JUMP_SIZE
             self.state = PULANDO
             
-
-
-
-
 class Queijo(pygame.sprite.Sprite):
     def __init__(self,queijo_img, x, y):
         # Construtor da classe mãe (Sprite).
@@ -189,3 +185,14 @@ class Queijo(pygame.sprite.Sprite):
         self.rect.midtop = (x,y)
     def update(self):
         pass
+'''
+class porta(pygame.sprite.Sprite):
+    def __init__(self,porta_img, x, y):
+        # Construtor da classe mãe (Sprite).
+        pygame.sprite.Sprite.__init__(self)
+        self.image = porta_img
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.rect.midtop = (x,y)
+    def update(self):
+        pass  '''  
