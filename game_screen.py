@@ -136,9 +136,16 @@ def game_screen(screen):
             score+=100
             assets[PEGA_QUEIJO].play() 
 
-        hit3=pygame.sprite.spritecollide(player1,porta_group, True)
+        hit3=pygame.sprite.spritecollide(player1,porta_group, False)
         if len(hit3) > 0:
-            lives+=1
+            fase.avancar_fase()
+            print(f'fase: {fase.fase}')
+
+            
+        hit4=pygame.sprite.spritecollide(player2,porta_group, False)
+        if len(hit4) > 0:
+            fase.avancar_fase()
+            print(f'fase: {fase.fase}')
             
             
                  
