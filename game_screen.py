@@ -7,7 +7,8 @@ from sprites import *
 
 
 # Define o mapa com os tipos de tiles
-MAP = Mapa('mapa3.txt').mapa
+fase = Fase()
+
 
 def game_screen(screen):
     clock = pygame.time.Clock()
@@ -24,6 +25,9 @@ def game_screen(screen):
     Queijo_group = pygame.sprite.Group() 
     porta_group = pygame.sprite.Group()
     
+
+    MAP = fase.mapa
+
     # cria os queijos no mapa
     while len(Queijo_group) <= 10:
         x = random.randint(2,30)
@@ -37,7 +41,7 @@ def game_screen(screen):
             all_sprites.add(Q)
     while len(porta_group) <= 1:
         x = (28)
-        y = (30)
+        y = (29)
         if MAP[x][y] == EMPTY:
             P = Portav(assets[PORTAV], x*TILE_SIZE, y*TILE_SIZE)
             porta_group.add(P)
@@ -51,6 +55,7 @@ def game_screen(screen):
     # Cria Sprite do jogador
     player1 = Rato1(assets[RATO1], 5, 62, blocks,fogo,water)
     player2 = Rato2(assets[RATO2], 5, 1, blocks,fogo,water)  # onde spawna
+
 
     # Cria os blocos de acordo com o mapa
     for x in range(len(MAP)):
@@ -130,6 +135,10 @@ def game_screen(screen):
         if len(hit2) > 0: 
             score+=100
             assets[PEGA_QUEIJO].play() 
+
+        hit3=pygame.sprite.spritecollide(player1,porta_group, True)
+        if len(hit3) > 0:
+            lives+=1
             
             
                  
