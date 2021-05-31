@@ -18,6 +18,9 @@ JUMP = 'rapaz_snd'
 FASE = 'uepa_snd'
 MENU = 'menu_img'
 TUTORIAL = 'instrucao_img'
+PORTAV = 'portav_img'
+
+PEGA_QUEIJO = 'uepa_snd'
 
 
 
@@ -40,6 +43,8 @@ RATO_HEIGHT = TILE_SIZE*2 #int(50*(2/3))
 RATO_WIDTH = TILE_SIZE #int(25*(2/3))
 QUEIJO_WIDTH = TILE_SIZE
 QUEIJO_HEIGHT = TILE_SIZE
+PORTAV_WIDTH = TILE_SIZE 
+PORTAV_HEIGHT = TILE_SIZE * 2
 
 # Define algumas variáveis com as cores básicas
 WHITE = (255, 255, 255)

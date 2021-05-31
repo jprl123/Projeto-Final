@@ -185,14 +185,14 @@ class Queijo(pygame.sprite.Sprite):
         self.rect.midtop = (x,y)
     def update(self):
         pass
-'''
-class porta(pygame.sprite.Sprite):
-    def __init__(self,porta_img, x, y):
+
+class Portav(pygame.sprite.Sprite):
+    def __init__(self,portav_img, x, y):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
-        self.image = porta_img
+        self.image = portav_img
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         self.rect.midtop = (x,y)
     def update(self):
-        pass  '''  
+        pass   
