@@ -23,6 +23,10 @@ def load_assets():
     assets[MENU] = pygame.transform.scale(assets[MENU],(WIDTH,HEIGHT))
     assets[TUTORIAL] = pygame.image.load(path.join(img_dir, 'tutorial.png')).convert()
     assets[TUTORIAL] = pygame.transform.scale(assets[TUTORIAL],(WIDTH,HEIGHT))
+    assets[PORTAV] = pygame.image.load(path.join(img_dir, 'ratoV.png')).convert_alpha()
+    assets[PORTAV] = pygame.transform.scale(assets[PORTAV],(PORTAV_WIDTH,PORTAV_HEIGHT))
+ 
+
 
     # Carrega os sons do jogo
     pygame.mixer.music.load(os.path.join(snd_dir, 'Tetris.ogg'))
@@ -30,6 +34,6 @@ def load_assets():
     assets[FASE] = pygame.mixer.Sound(os.path.join(snd_dir, 'uepa.wav'))
     assets[JUMP] = pygame.mixer.Sound(os.path.join(snd_dir, 'jump.wav'))
     #assets[JUMP] = pygame.mixer.Sound(os.path.join(snd_dir, 'rapaz.wav'))
-    #assets[PEGA_QUEIJO] = pygame.mixer.Sound('assets/snd/expl3.wav')
+    assets[PEGA_QUEIJO] = pygame.mixer.Sound(os.path.join(snd_dir, 'uepa.wav'))
     return assets
 

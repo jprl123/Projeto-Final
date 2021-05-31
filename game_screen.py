@@ -22,6 +22,7 @@ def game_screen(screen):
     fogo = pygame.sprite.Group()
     water = pygame.sprite.Group()
     Queijo_group = pygame.sprite.Group() 
+    porta_group = pygame.sprite.Group()
     
     # cria os queijos no mapa
     while len(Queijo_group) <= 10:
@@ -34,7 +35,16 @@ def game_screen(screen):
             Q = Queijo(assets[QUEIJO], WIDTH-x*TILE_SIZE, y*TILE_SIZE) # espelha do outro lado do mapa
             Queijo_group.add(Q)
             all_sprites.add(Q)
-        
+    while len(porta_group) <= 1:
+        x = (28)
+        y = (30)
+        if MAP[x][y] == EMPTY:
+            P = Portav(assets[PORTAV], x*TILE_SIZE, y*TILE_SIZE)
+            porta_group.add(P)
+            all_sprites.add(P)
+            P = Portav(assets[PORTAV], WIDTH-x*TILE_SIZE, y*TILE_SIZE) # espelha do outro lado do mapa
+            porta_group.add(P)
+            all_sprites.add(P)    
     
 
 
@@ -115,9 +125,11 @@ def game_screen(screen):
         hit1=pygame.sprite.spritecollide(player1,Queijo_group, True)
         if len(hit1) > 0:
             score+=100
+            assets[PEGA_QUEIJO].play()
         hit2=pygame.sprite.spritecollide(player2,Queijo_group, True)
         if len(hit2) > 0: 
-            score+=100  
+            score+=100
+            assets[PEGA_QUEIJO].play() 
             
             
                  
