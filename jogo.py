@@ -20,12 +20,12 @@ pygame.display.set_icon(gameIcon)
 state = INICIA
 while state != SAIR:
     if state == INICIA:
-        state == game_screen(screen)
+        state = init_screen(screen)
     elif state == INST:
-        state == tutorial_screen(screen)
+        state = tutorial_screen(screen)
     elif state == JOGAR:
-        state == game_screen(screen)
+        state = game_screen(screen)
     else:
-        state == SAIR
+        state = SAIR
 pygame.quit()                
 

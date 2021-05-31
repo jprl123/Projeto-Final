@@ -33,18 +33,18 @@ EMPTY = -1
 
 
 # Dados gerais do jogo.
-WIDTH = 1920//2 # Largura da tela
-HEIGHT = 1080//2 # Altura da tela
+WIDTH = 1920 # Largura da tela
+HEIGHT = 1080 # Altura da tela
 FPS = 60 # Frames por segundo
-TILE_SIZE = 30//2 # Tamanho de cada tile (cada tile é um quadrado)
+TILE_SIZE = 30 # Tamanho de cada tile (cada tile é um quadrado)
 
 # Define tamanhos
 RATO_HEIGHT = TILE_SIZE*2 #int(50*(2/3))
 RATO_WIDTH = TILE_SIZE #int(25*(2/3))
 QUEIJO_WIDTH = TILE_SIZE
 QUEIJO_HEIGHT = TILE_SIZE
-PORTAV_WIDTH = TILE_SIZE 
-PORTAV_HEIGHT = TILE_SIZE * 2
+PORTAV_WIDTH = TILE_SIZE * 3
+PORTAV_HEIGHT = TILE_SIZE * 3
 
 # Define algumas variáveis com as cores básicas
 WHITE = (255, 255, 255)
