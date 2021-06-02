@@ -9,8 +9,9 @@ from sprites import *
 # Define o mapa com os tipos de tiles
 fase = Fase()
 
-
 def game_screen(screen):
+    passou_de_fase = False
+
     clock = pygame.time.Clock()
     # Carrega assets
     assets = load_assets()
@@ -56,8 +57,7 @@ def game_screen(screen):
     player1 = Rato1(assets[RATO1], 5, 62, blocks,fogo,water)
     player2 = Rato2(assets[RATO2], 5, 1, blocks,fogo,water)  # onde spawna
 
-
-    # Cria os blocos de acordo com o mapa
+    
     for x in range(len(MAP)):
         for y in range(len(MAP[x])):
             tile_type = MAP[x][y]
@@ -72,15 +72,55 @@ def game_screen(screen):
             elif tile_type == WATER:
                 tile = Tile(assets[tile_type], x, y)
                 all_sprites.add(tile)
-                water.add(tile)    
+                water.add(tile) 
     all_sprites.add(player1,player2)
+
+
+    # Cria os blocos de acordo com o mapa
+    def cria_mapa():
+        while len(Queijo_group) <= 10:
+            x = random.randint(2,30)
+            y = random.randint(2,15)
+            if MAP[x][y] == EMPTY:
+                Q = Queijo(assets[QUEIJO], x*TILE_SIZE, y*TILE_SIZE)
+                Queijo_group.add(Q)
+                all_sprites.add(Q)
+                Q = Queijo(assets[QUEIJO], WIDTH-x*TILE_SIZE, y*TILE_SIZE) # espelha do outro lado do mapa
+                Queijo_group.add(Q)
+                all_sprites.add(Q)
+        while len(porta_group) <= 1:
+            x = (28)
+            y = (29)
+            if MAP[x][y] == EMPTY:
+                P = Portav(assets[PORTAV], x*TILE_SIZE, y*TILE_SIZE)
+                porta_group.add(P)
+                all_sprites.add(P)
+                P = Portav(assets[PORTAV], WIDTH-x*TILE_SIZE, y*TILE_SIZE) # espelha do outro lado do mapa
+                porta_group.add(P)
+                all_sprites.add(P)
+        for x in range(len(MAP)):
+            for y in range(len(MAP[x])):
+                tile_type = MAP[x][y]
+                if tile_type == BLOCK:
+                    tile = Tile(assets[tile_type], x, y)
+                    all_sprites.add(tile)
+                    blocks.add(tile)
+                elif tile_type == FOGO:
+                    tile = Tile(assets[tile_type], x, y)
+                    all_sprites.add(tile)
+                    fogo.add(tile)
+                elif tile_type == WATER:
+                    tile = Tile(assets[tile_type], x, y)
+                    all_sprites.add(tile)
+                    water.add(tile)    
+    
 
     PLAYING = 0
     DONE = 1
 
     estado = PLAYING
     score = 0
-    lives = 3
+
     
     pygame.mixer.music.play(loops=-1)
     while estado != DONE:
@@ -107,7 +147,6 @@ def game_screen(screen):
                     elif event.key == pygame.K_UP:
                         player1.jump()
                         assets[JUMP].play()
-                        #lives -= 1
                     elif event.key == pygame.K_w:  
                         player2.jump()
                         assets[JUMP].play()
@@ -121,11 +160,8 @@ def game_screen(screen):
                     if event.key == pygame.K_a:
                         player2.speedx += SPEED_X
                     if event.key == pygame.K_d:
-                        player2.speedx -= SPEED_X
-        #verifica se tem vida
-        if lives == 0:
-                    estado = DONE    
-        all_sprites.update()
+                        player2.speedx -= SPEED_X 
+
         
         hit1=pygame.sprite.spritecollide(player1,Queijo_group, True)
         if len(hit1) > 0:
@@ -136,16 +172,25 @@ def game_screen(screen):
             score+=100
             assets[PEGA_QUEIJO].play() 
 
+
         hit3=pygame.sprite.spritecollide(player1,porta_group, False)
         if len(hit3) > 0:
-            fase.avancar_fase()
-            print(f'fase: {fase.fase}')
-
-            
+            if not passou_de_fase:
+                fase.avancar_fase()
+                x = game_screen(screen)
+                print(f'fase: {fase.fase}')
+                passou_de_fase = True
         hit4=pygame.sprite.spritecollide(player2,porta_group, False)
         if len(hit4) > 0:
-            fase.avancar_fase()
-            print(f'fase: {fase.fase}')
+            if not passou_de_fase:
+                fase.avancar_fase()
+                x = game_screen(screen)
+                print(f'fase: {fase.fase}')
+                passou_de_fase = True
+            
+
+        all_sprites.update()
+
             
             
                  
@@ -160,14 +205,6 @@ def game_screen(screen):
         text_rect = text_surface.get_rect()
         text_rect.midtop = (WIDTH / 2, 1000)
         screen.blit(text_surface, text_rect)
-
-
-        # Desenhando as vidas
-        text_surface = assets[SCORE_FONT].render(chr(9829) *lives, True, RED)
-        text_rect = text_surface.get_rect()
-        text_rect.midtop = (WIDTH / 2, 970)
-        screen.blit(text_surface, text_rect)
-        
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.update() 
