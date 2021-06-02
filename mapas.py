@@ -5,6 +5,7 @@ class Fase():
     def avancar_fase(self):
         self.fase += 1 
         self.mapa = self.excel_txt2mapa('mapa{}.txt'.format(self.fase))
+        print('soma fase')
         
     def espelha_mapa(self,l):
         l_2 = []

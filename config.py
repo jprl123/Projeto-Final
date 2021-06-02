@@ -41,7 +41,7 @@ TILE_SIZE = 30 # Tamanho de cada tile (cada tile é um quadrado)
 # Define tamanhos
 RATO_HEIGHT = TILE_SIZE*2 #int(50*(2/3))
 RATO_WIDTH = TILE_SIZE #int(25*(2/3))
-QUEIJO_WIDTH = TILE_SIZE
+QUEIJO_WIDTH = TILE_SIZE//2
 QUEIJO_HEIGHT = TILE_SIZE
 PORTAV_WIDTH = TILE_SIZE * 3
 PORTAV_HEIGHT = TILE_SIZE * 3
@@ -58,7 +58,8 @@ YELLOW = (255, 255, 0)
 INICIA = 0
 INST = 1
 JOGAR = 2
-SAIR = 3
+OVER = 3
+SAIR = 4
 
 #gravidade
 GRAVITY = 3

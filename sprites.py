@@ -95,9 +95,9 @@ class Rato1(pygame.sprite.Sprite):
         # Só pode pular se ainda não estiver pulando ou caindo
         if self.state == PARADO:
             self.speedy -= JUMP_SIZE
-            self.state = PARADO
+            self.state = PULANDO
 
-class Rato2(pygame.sprite.Sprite):
+class Rato2(pygame.sprite.Sprite): # rato agua
     def __init__(self,player2_img,x,y,blocks,fogo,water):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
@@ -162,13 +162,9 @@ class Rato2(pygame.sprite.Sprite):
         for c2 in hitfogo:
             self.rect.x = 2 * TILE_SIZE
             self.rect.y = 2 * TILE_SIZE
-            #self.lives -= 1
-        
-
             
-
-            
-        # Método que faz o personagem pular
+          
+    #faz o personagem pular
     def jump(self):
         # Só pode pular se ainda não estiver pulando ou caindo
         if self.state == PARADO:
