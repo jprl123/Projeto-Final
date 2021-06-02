@@ -3,7 +3,8 @@ class Fase():
         self.fase = 0
         self.avancar_fase()
     def avancar_fase(self):
-        self.fase += 1 
+        self.fase += 1
+        print(self.fase) 
         self.mapa = self.excel_txt2mapa('mapa{}.txt'.format(self.fase))
         print('soma fase')
         

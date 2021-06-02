@@ -9,6 +9,7 @@ from sprites import *
 # Define o mapa com os tipos de tiles
 fase = Fase()
 
+
 def game_screen(screen):
     passou_de_fase = False
 
@@ -76,43 +77,7 @@ def game_screen(screen):
     all_sprites.add(player1,player2)
 
 
-    # Cria os blocos de acordo com o mapa
-    def cria_mapa():
-        while len(Queijo_group) <= 10:
-            x = random.randint(2,30)
-            y = random.randint(2,15)
-            if MAP[x][y] == EMPTY:
-                Q = Queijo(assets[QUEIJO], x*TILE_SIZE, y*TILE_SIZE)
-                Queijo_group.add(Q)
-                all_sprites.add(Q)
-                Q = Queijo(assets[QUEIJO], WIDTH-x*TILE_SIZE, y*TILE_SIZE) # espelha do outro lado do mapa
-                Queijo_group.add(Q)
-                all_sprites.add(Q)
-        while len(porta_group) <= 1:
-            x = (28)
-            y = (29)
-            if MAP[x][y] == EMPTY:
-                P = Portav(assets[PORTAV], x*TILE_SIZE, y*TILE_SIZE)
-                porta_group.add(P)
-                all_sprites.add(P)
-                P = Portav(assets[PORTAV], WIDTH-x*TILE_SIZE, y*TILE_SIZE) # espelha do outro lado do mapa
-                porta_group.add(P)
-                all_sprites.add(P)
-        for x in range(len(MAP)):
-            for y in range(len(MAP[x])):
-                tile_type = MAP[x][y]
-                if tile_type == BLOCK:
-                    tile = Tile(assets[tile_type], x, y)
-                    all_sprites.add(tile)
-                    blocks.add(tile)
-                elif tile_type == FOGO:
-                    tile = Tile(assets[tile_type], x, y)
-                    all_sprites.add(tile)
-                    fogo.add(tile)
-                elif tile_type == WATER:
-                    tile = Tile(assets[tile_type], x, y)
-                    all_sprites.add(tile)
-                    water.add(tile)    
+        
     
 
     PLAYING = 0
@@ -161,7 +126,7 @@ def game_screen(screen):
                         player2.speedx += SPEED_X
                     if event.key == pygame.K_d:
                         player2.speedx -= SPEED_X 
-
+        all_sprites.update()
         
         hit1=pygame.sprite.spritecollide(player1,Queijo_group, True)
         if len(hit1) > 0:
@@ -172,24 +137,59 @@ def game_screen(screen):
             score+=100
             assets[PEGA_QUEIJO].play() 
 
-
-        hit3=pygame.sprite.spritecollide(player1,porta_group, False)
-        if len(hit3) > 0:
-            if not passou_de_fase:
-                fase.avancar_fase()
-                x = game_screen(screen)
-                print(f'fase: {fase.fase}')
-                passou_de_fase = True
         hit4=pygame.sprite.spritecollide(player2,porta_group, False)
-        if len(hit4) > 0:
+        hit3=pygame.sprite.spritecollide(player1,porta_group, False)
+        if len(hit3) > 0 and len(hit4)>0:
             if not passou_de_fase:
-                fase.avancar_fase()
-                x = game_screen(screen)
-                print(f'fase: {fase.fase}')
-                passou_de_fase = True
-            
 
-        all_sprites.update()
+                blocks.empty()
+                porta_group.empty()
+                Queijo_group.empty()
+                fase.avancar_fase()
+                MAP = fase.mapa
+                # Cria os blocos de acordo com o mapa
+                while len(Queijo_group) <= 10:
+                    x = random.randint(2,30)
+                    y = random.randint(2,15)
+                    if MAP[x][y] == EMPTY:
+                        Q = Queijo(assets[QUEIJO], x*TILE_SIZE, y*TILE_SIZE)
+                        Queijo_group.add(Q)
+                        all_sprites.add(Q)
+                        Q = Queijo(assets[QUEIJO], WIDTH-x*TILE_SIZE, y*TILE_SIZE) # espelha do outro lado do mapa
+                        Queijo_group.add(Q)
+                        all_sprites.add(Q)
+                while len(porta_group) <= 1:
+                    x = (28)
+                    y = (29)
+                    if MAP[x][y] == EMPTY:
+                        P = Portav(assets[PORTAV], x*TILE_SIZE, y*TILE_SIZE)
+                        porta_group.add(P)
+                        all_sprites.add(P)
+                        P = Portav(assets[PORTAV], WIDTH-x*TILE_SIZE, y*TILE_SIZE) # espelha do outro lado do mapa
+                        porta_group.add(P)
+                        all_sprites.add(P)
+                
+                for x in range(len(MAP)):
+                    for y in range(len(MAP[x])):
+                        tile_type = MAP[x][y]
+                        if tile_type == BLOCK:
+                            tile = Tile(assets[tile_type], x, y)
+                            all_sprites.add(tile)
+                            blocks.add(tile)
+                        elif tile_type == FOGO:
+                            tile = Tile(assets[tile_type], x, y)
+                            all_sprites.add(tile)
+                            fogo.add(tile)
+                        elif tile_type == WATER:
+                            tile = Tile(assets[tile_type], x, y)
+                            all_sprites.add(tile)
+                            water.add(tile)
+                        print(f'fase: {fase.fase}')
+                all_sprites.update()
+                pygame.display.update() 
+                passou_de_fase = True
+
+
 
             
             
