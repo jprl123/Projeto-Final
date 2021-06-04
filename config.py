@@ -34,10 +34,10 @@ EMPTY = -1
 
 
 # Dados gerais do jogo.
-WIDTH = 1920 //2 # Largura da tela
-HEIGHT = 1080 //2 # Altura da tela
+WIDTH = 1920  # Largura da tela
+HEIGHT = 1080  # Altura da tela
 FPS = 60 # Frames por segundo
-TILE_SIZE = 30 //2 # Tamanho de cada tile (cada tile é um quadrado)
+TILE_SIZE = 30  # Tamanho de cada tile (cada tile é um quadrado)
 
 # Define tamanhos
 RATO_HEIGHT = TILE_SIZE*2 #int(50*(2/3))

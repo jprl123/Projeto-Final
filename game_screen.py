@@ -11,16 +11,16 @@ fase = Fase()
 
 
 def game_screen(screen):
-    passou_de_fase = False
-
     clock = pygame.time.Clock()
     # Carrega assets
     assets = load_assets()
     # Cria um grupo de todos os sprites.
     all_sprites = pygame.sprite.Group()
+    all_maps = pygame.sprite.Group() 
     # Cria um grupo somente com os sprites de bloco.
     groups = {}
     groups['all_sprites'] = all_sprites
+    groups['all_maps'] = all_maps
     blocks = pygame.sprite.Group()
     fogo = pygame.sprite.Group()
     water = pygame.sprite.Group()
@@ -77,6 +77,7 @@ def game_screen(screen):
     all_sprites.add(player1,player2)
 
 
+
         
     
 
@@ -91,13 +92,6 @@ def game_screen(screen):
     while estado != DONE:
         assets = load_assets()
         clock.tick(FPS)
-        score_text = assets[SCORE_FONT].render("{:08d}".format(score), True, BLUE)
-        score_over = assets[OVER_FONT].render("{:08d}".format(score), True, BLUE)
-        textoover1 = assets[OVER_FONT].render('Aperte ESPAÇO para reiniciar o jogo', True, BLUE)
-        textoover2 = assets[OVER_FONT].render('Aperte ENTER para sair do jogo', True, BLUE)
-        
-
-        gameover = assets[SCORE_FONT].render('GAME OVER', True, BLUE)
         # ----- Trata eventos
         for event in pygame.event.get():
             # ----- Verifica consequências
@@ -134,6 +128,19 @@ def game_screen(screen):
                         player2.speedx += SPEED_X
                     if event.key == pygame.K_d:
                         player2.speedx -= SPEED_X 
+            
+            
+            if estado == QDONE:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        game_screen(screen) 
+        
+        
+        
+        score_text = assets[SCORE_FONT].render("{:08d}".format(score), True, BLUE)
+        score_over = assets[OVER_FONT].render("{:08d}".format(score), True, BLUE)
+        textoover1 = assets[OVER_FONT].render('Aperte ESPAÇO para reiniciar o jogo', True, BLUE)
+        gameover = assets[SCORE_FONT].render('GAME OVER', True, BLUE)
 
 
 
@@ -144,6 +151,8 @@ def game_screen(screen):
 
 
         all_sprites.update()
+        all_maps.update()
+
         hit1=pygame.sprite.spritecollide(player1,Queijo_group, True)
         if len(hit1) > 0:
             score+=100
@@ -158,10 +167,9 @@ def game_screen(screen):
         hit3=pygame.sprite.spritecollide(player1,porta_group, False)
         if len(hit3) > 0 and len(hit4)>0:
             if not passou_de_fase:
-
-                blocks.empty()
                 porta_group.empty()
                 Queijo_group.empty()
+                all_sprites.empty()
                 fase.avancar_fase()
                 MAP = fase.mapa
                 # Cria os blocos de acordo com o mapa
@@ -205,6 +213,9 @@ def game_screen(screen):
                 all_sprites.update()
                 pygame.display.update() 
                 passou_de_fase = True
+        
+        
+        
         elif estado == QDONE:
             player1.kill()
             player2.kill()
@@ -218,32 +229,16 @@ def game_screen(screen):
         if estado == PLAYING:
             screen.fill(BLACK)  
             screen.blit(assets[BACKGROUND], (0, 0))
+            score_text = assets[SCORE_FONT].render("{:08d}".format(score), True, BLUE)
             text_rect = score_text.get_rect()
             text_rect.midtop = (WIDTH / 2, 1000)
             screen.blit(score_text, text_rect)
         if estado == QDONE:
-            blocks.empty()
-            porta_group.empty()
-            Queijo_group.empty()
-            fogo.empty()
-            water.empty()
-            #for i in all_sprites:
-
-            #   i.kill()
-
+            all_sprites.empty()
             screen.fill(BLACK)
-            screen.blit(assets[BACKGROUND], (0, 0))
-            screen.blit(gameover, (960, 840))
-            screen.blit(score_over, (960, 540))
-            screen.blit(textoover1, (960, 340))
-            screen.blit(textoover2, (960, 320))
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    estado = PLAYING
-                if event.key == pygame.K_RETURN:
-                    estado == DONE
-                print('2')        
-
+            screen.blit(gameover,   (860, 240))
+            screen.blit(score_over, (860, 540))
+            screen.blit(textoover1, (860, 740))    
         all_sprites.draw(screen)
 
         

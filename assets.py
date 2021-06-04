@@ -18,14 +18,14 @@ def load_assets():
     assets[BLOCK] = pygame.image.load(path.join(img_dir, 'block.png')).convert()
     assets[FOGO] = pygame.image.load(path.join(img_dir, 'fogo.png')).convert()
     assets[WATER] = pygame.image.load(path.join(img_dir, 'water.png')).convert()
-    assets[SCORE_FONT] = pygame.font.Font(os.path.join(font_dir, 'PressStart2P.ttf'), 28)
+    assets[SCORE_FONT] = pygame.font.Font(os.path.join(font_dir, 'PressStart2P.ttf'), 30)
     assets[MENU] = pygame.image.load(path.join(img_dir, 'Menu inicial.png')).convert()
     assets[MENU] = pygame.transform.scale(assets[MENU],(WIDTH,HEIGHT))
     assets[TUTORIAL] = pygame.image.load(path.join(img_dir, 'tutorial.png')).convert()
     assets[TUTORIAL] = pygame.transform.scale(assets[TUTORIAL],(WIDTH,HEIGHT))
     assets[PORTAV] = pygame.image.load(path.join(img_dir, 'ratoV.png')).convert_alpha()
     assets[PORTAV] = pygame.transform.scale(assets[PORTAV],(PORTAV_WIDTH,PORTAV_HEIGHT))
-    assets[OVER_FONT] = pygame.font.Font(os.path.join(font_dir, 'PressStart2P.ttf'), 10)
+    assets[OVER_FONT] = pygame.font.Font(os.path.join(font_dir, 'PressStart2P.ttf'), 30)
 
 
     # Carrega os sons do jogo
