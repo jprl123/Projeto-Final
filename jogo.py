@@ -25,8 +25,6 @@ while state != SAIR:
         state = tutorial_screen(screen)
     elif state == JOGAR:
         state = game_screen(screen)
-    elif state == OVER:
-        state = gameover_screen(screen)
     else:
         state = SAIR
 pygame.quit()                

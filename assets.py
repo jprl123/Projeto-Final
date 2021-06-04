@@ -25,7 +25,7 @@ def load_assets():
     assets[TUTORIAL] = pygame.transform.scale(assets[TUTORIAL],(WIDTH,HEIGHT))
     assets[PORTAV] = pygame.image.load(path.join(img_dir, 'ratoV.png')).convert_alpha()
     assets[PORTAV] = pygame.transform.scale(assets[PORTAV],(PORTAV_WIDTH,PORTAV_HEIGHT))
- 
+    assets[OVER_FONT] = pygame.font.Font(os.path.join(font_dir, 'PressStart2P.ttf'), 10)
 
 
     # Carrega os sons do jogo

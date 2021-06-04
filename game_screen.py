@@ -82,15 +82,22 @@ def game_screen(screen):
 
     PLAYING = 0
     DONE = 1
-
+    QDONE = 2
     estado = PLAYING
     score = 0
 
     
-    pygame.mixer.music.play(loops=-1)
+    
     while estado != DONE:
         assets = load_assets()
         clock.tick(FPS)
+        score_text = assets[SCORE_FONT].render("{:08d}".format(score), True, BLUE)
+        score_over = assets[OVER_FONT].render("{:08d}".format(score), True, BLUE)
+        textoover1 = assets[OVER_FONT].render('Aperte ESPAÇO para reiniciar o jogo', True, BLUE)
+        textoover2 = assets[OVER_FONT].render('Aperte ENTER para sair do jogo', True, BLUE)
+        
+
+        gameover = assets[SCORE_FONT].render('GAME OVER', True, BLUE)
         # ----- Trata eventos
         for event in pygame.event.get():
             # ----- Verifica consequências
@@ -98,6 +105,7 @@ def game_screen(screen):
                 estado = DONE
             # Só verifica o teclado se está no estado de jogo
             if estado == PLAYING:
+                #pygame.mixer.music.play(loops=-1)
                 # Verifica se apertou alguma tecla.
                 if event.type == pygame.KEYDOWN:
                     # Dependendo da tecla, altera a velocidade.
@@ -126,8 +134,16 @@ def game_screen(screen):
                         player2.speedx += SPEED_X
                     if event.key == pygame.K_d:
                         player2.speedx -= SPEED_X 
-        all_sprites.update()
+
+
+
+
         
+
+
+
+
+        all_sprites.update()
         hit1=pygame.sprite.spritecollide(player1,Queijo_group, True)
         if len(hit1) > 0:
             score+=100
@@ -136,6 +152,7 @@ def game_screen(screen):
         if len(hit2) > 0: 
             score+=100
             assets[PEGA_QUEIJO].play() 
+            estado = QDONE
 
         hit4=pygame.sprite.spritecollide(player2,porta_group, False)
         hit3=pygame.sprite.spritecollide(player1,porta_group, False)
@@ -188,23 +205,51 @@ def game_screen(screen):
                 all_sprites.update()
                 pygame.display.update() 
                 passou_de_fase = True
+        elif estado == QDONE:
+            player1.kill()
+            player2.kill()
 
 
-
-            
-            
-                 
+        
+        
+        
 
         # A cada loop, redesenha o fundo e os sprites
-        screen.fill(BLACK)  
-        screen.blit(assets[BACKGROUND], (0, 0))
+        if estado == PLAYING:
+            screen.fill(BLACK)  
+            screen.blit(assets[BACKGROUND], (0, 0))
+            text_rect = score_text.get_rect()
+            text_rect.midtop = (WIDTH / 2, 1000)
+            screen.blit(score_text, text_rect)
+        if estado == QDONE:
+            blocks.empty()
+            porta_group.empty()
+            Queijo_group.empty()
+            fogo.empty()
+            water.empty()
+            #for i in all_sprites:
+
+            #   i.kill()
+
+            screen.fill(BLACK)
+            screen.blit(assets[BACKGROUND], (0, 0))
+            screen.blit(gameover, (960, 840))
+            screen.blit(score_over, (960, 540))
+            screen.blit(textoover1, (960, 340))
+            screen.blit(textoover2, (960, 320))
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    estado = PLAYING
+                if event.key == pygame.K_RETURN:
+                    estado == DONE
+                print('2')        
+
         all_sprites.draw(screen)
+
         
         #desenhando o score
-        text_surface = assets[SCORE_FONT].render("{:08d}".format(score), True, BLUE)
-        text_rect = text_surface.get_rect()
-        text_rect.midtop = (WIDTH / 2, 1000)
-        screen.blit(text_surface, text_rect)
+        
+        
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.update() 
