@@ -5,10 +5,10 @@ from assets import *
 import random
 from sprites import *
 
-
+pygame.init()
 # Define o mapa com os tipos de tiles
 fase = Fase()
-
+pygame.mixer.init()
 
 def game_screen(screen):
     clock = pygame.time.Clock()
@@ -55,7 +55,7 @@ def game_screen(screen):
 
 
     # Cria Sprite do jogador
-    player1 = Rato1(assets[RATO1], 5, 62, blocks,fogo,water)
+    player1 = Rato1(assets[RATO1_ESP], 5, 62, blocks,fogo,water)
     player2 = Rato2(assets[RATO2], 5, 1, blocks,fogo,water)  # onde spawna
 
     
@@ -84,11 +84,12 @@ def game_screen(screen):
     PLAYING = 0
     DONE = 1
     QDONE = 2
+    WIN = 3
     estado = PLAYING
     score = 0
 
     
-    
+    pygame.mixer.music.play(loops=-1)
     while estado != DONE:
         assets = load_assets()
         clock.tick(FPS)
@@ -105,12 +106,16 @@ def game_screen(screen):
                     # Dependendo da tecla, altera a velocidade.
                     if event.key == pygame.K_LEFT:
                         player1.speedx -= SPEED_X
+                        player1.image = assets[RATO1_ESP]
                     if event.key == pygame.K_RIGHT:
                         player1.speedx += SPEED_X
+                        player1.image = assets[RATO1]
                     if event.key == pygame.K_a:
                         player2.speedx -= SPEED_X
+                        player2.image = assets[RATO2_ESP]
                     if event.key == pygame.K_d:
                         player2.speedx += SPEED_X
+                        player2.image = assets[RATO2]
                     elif event.key == pygame.K_UP:
                         player1.jump()
                         assets[JUMP].play()
@@ -133,7 +138,12 @@ def game_screen(screen):
             if estado == QDONE:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
+                        game_screen(screen)
+            if estado == WIN:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
                         game_screen(screen) 
+        
         
         
         
@@ -141,10 +151,16 @@ def game_screen(screen):
         score_over = assets[OVER_FONT].render("{:08d}".format(score), True, BLUE)
         textoover1 = assets[OVER_FONT].render('Aperte ESPAÇO para reiniciar o jogo', True, BLUE)
         gameover = assets[SCORE_FONT].render('GAME OVER', True, BLUE)
+        winover = assets[SCORE_FONT].render('YOU WIN!', True, BLUE)
 
 
 
-
+        '''hitfogo = pygame.sprite.spritecollide(player2,fogo, False)
+        for c2 in hitfogo:
+            player2.rect.x = 2 * TILE_SIZE
+            player2.rect.y = 2 * TILE_SIZE
+            player1.kill()
+            estado = QDONE'''
         
 
 
@@ -162,15 +178,24 @@ def game_screen(screen):
             score+=100
             assets[PEGA_QUEIJO].play() 
             estado = QDONE
+        #if player2.kill == True:
+            #estado=QDONE 
+
+
+
+
 
         hit4=pygame.sprite.spritecollide(player2,porta_group, False)
         hit3=pygame.sprite.spritecollide(player1,porta_group, False)
         if len(hit3) > 0 and len(hit4)>0:
-            if not passou_de_fase:
                 porta_group.empty()
                 Queijo_group.empty()
                 all_sprites.empty()
-                fase.avancar_fase()
+
+
+                estado = WIN 
+                
+                '''fase.avancar_fase()
                 MAP = fase.mapa
                 # Cria os blocos de acordo com o mapa
                 while len(Queijo_group) <= 10:
@@ -212,7 +237,7 @@ def game_screen(screen):
                         print(f'fase: {fase.fase}')
                 all_sprites.update()
                 pygame.display.update() 
-                passou_de_fase = True
+                passou_de_fase = True'''
         
         
         
@@ -238,9 +263,16 @@ def game_screen(screen):
             screen.fill(BLACK)
             screen.blit(gameover,   (860, 240))
             screen.blit(score_over, (860, 540))
-            screen.blit(textoover1, (860, 740))    
+            screen.blit(textoover1, (460, 740))    
         all_sprites.draw(screen)
 
+        if estado == WIN:
+            all_sprites.empty()
+            screen.fill(BLACK)
+            screen.blit(winover,   (860, 240))
+            screen.blit(score_over, (860, 540))
+            screen.blit(textoover1, (460, 740))    
+          
         
         #desenhando o score
         
