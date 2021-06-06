@@ -12,6 +12,7 @@ PULANDO = 1
 CAINDO = 2
 #representa os blocos do cenário
 class Tile(pygame.sprite.Sprite):
+    
     # Construtor da classe.
     def __init__(self, tile_img, x, y):
         # Construtor da classe pai (Sprite).
@@ -29,6 +30,7 @@ class Tile(pygame.sprite.Sprite):
 
 class Rato1(pygame.sprite.Sprite):
     def __init__(self,player_img,x,y,blocks,fogo,water):
+        
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
         self.image = player_img
@@ -68,6 +70,8 @@ class Rato1(pygame.sprite.Sprite):
                 self.state = PARADO
         # Tenta andar em x
         self.rect.x += self.speedx
+        
+        
         # Mantem dentro da tela
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
@@ -98,6 +102,7 @@ class Rato1(pygame.sprite.Sprite):
             self.state = PULANDO
 
 class Rato2(pygame.sprite.Sprite): # rato agua
+    #assets = load_assets()
     def __init__(self,player2_img,x,y,blocks,fogo,water):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
@@ -162,6 +167,8 @@ class Rato2(pygame.sprite.Sprite): # rato agua
         for c2 in hitfogo:
             self.rect.x = 2 * TILE_SIZE
             self.rect.y = 2 * TILE_SIZE
+            #self.kill()
+            #estado = QDONE
             
           
     #faz o personagem pular

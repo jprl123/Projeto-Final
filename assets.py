@@ -26,6 +26,10 @@ def load_assets():
     assets[PORTAV] = pygame.image.load(path.join(img_dir, 'ratoV.png')).convert_alpha()
     assets[PORTAV] = pygame.transform.scale(assets[PORTAV],(PORTAV_WIDTH,PORTAV_HEIGHT))
     assets[OVER_FONT] = pygame.font.Font(os.path.join(font_dir, 'PressStart2P.ttf'), 30)
+    assets[RATO1_ESP] = pygame.image.load(path.join(img_dir, 'rato1(ani(e).png')).convert_alpha()
+    assets[RATO1_ESP] = pygame.transform.scale(assets[RATO1_ESP],(RATO_WIDTH, RATO_HEIGHT))
+    assets[RATO2_ESP] = pygame.image.load(path.join(img_dir, 'rato2(ani(e).png')).convert_alpha()
+    assets[RATO2_ESP] = pygame.transform.scale(assets[RATO2_ESP],(RATO_WIDTH, RATO_HEIGHT))
 
 
     # Carrega os sons do jogo
