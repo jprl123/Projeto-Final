@@ -19,6 +19,7 @@ pygame.display.set_caption('O Rato e a Rata')
 
 
 state = INICIA
+score = 0
 while state != SAIR:
     if state == INICIA:
         state = init_screen(screen)

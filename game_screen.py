@@ -30,7 +30,7 @@ def game_screen(screen):
     porta_group = pygame.sprite.Group()
     
 
-    MAP = fase.excel_txt2mapa('mapa1.txt')
+    MAP = fase.excel_txt2mapa('mapa2.txt')
 
     # cria os queijos no mapa
     while len(Queijo_group) <= 10:
@@ -78,10 +78,6 @@ def game_screen(screen):
                 water.add(tile) 
     all_sprites.add(player1,player2)
 
-
-
-        
-    
 
     PLAYING = 0
     DONE = 1
@@ -138,10 +134,10 @@ def game_screen(screen):
             
             
             
-            if estado == WIN:
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        game_screen(screen) 
+            #if estado == WIN: 
+                #if event.type == pygame.KEYDOWN:
+                    #if event.key == pygame.K_SPACE:
+                        #game_screen(screen) 
         
         
         
@@ -154,13 +150,13 @@ def game_screen(screen):
 
 
 
-        '''hitfogo = pygame.sprite.spritecollide(player2,fogo, False)
+        hitfogo = pygame.sprite.spritecollide(player2,fogo, False)
         for c2 in hitfogo:
-            player2.rect.x = 2 * TILE_SIZE
-            player2.rect.y = 2 * TILE_SIZE
-            player1.kill()
-            estado = QDONE'''
-        
+            '''player2.rect.x = 2 * TILE_SIZE
+            player2.rect.y = 2 * TILE_SIZE'''
+            player2.kill()
+            estado = QDONE
+            return OVER,score
 
 
 
