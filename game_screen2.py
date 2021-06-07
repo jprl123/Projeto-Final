@@ -5,14 +5,12 @@ from assets import *
 import random
 from sprites import *
 
-#pygame.init()
+pygame.init()
 # Define o mapa com os tipos de tiles
 fase = Fase()
-#pygame.mixer.init()
+pygame.mixer.init()
 
-def game_screen(screen):
-    pygame.mixer.music.load(os.path.join(snd_dir, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
-    pygame.mixer.music.set_volume(0.4)
+def game_screen2(screen):
     clock = pygame.time.Clock()
     # Carrega assets
     assets = load_assets()
@@ -29,8 +27,7 @@ def game_screen(screen):
     Queijo_group = pygame.sprite.Group() 
     porta_group = pygame.sprite.Group()
     
-
-    MAP = fase.excel_txt2mapa('mapa1.txt')
+    MAP = fase.excel_txt2mapa('mapa2.txt')
 
     # cria os queijos no mapa
     while len(Queijo_group) <= 10:
@@ -57,7 +54,7 @@ def game_screen(screen):
 
 
     # Cria Sprite do jogador
-    player1 = Rato1(assets[RATO1_ESP], 5, 60, blocks,fogo,water)
+    player1 = Rato1(assets[RATO1_ESP], 5, 61, blocks,fogo,water)
     player2 = Rato2(assets[RATO2], 5, 5, blocks,fogo,water)  # onde spawna
 
     
@@ -140,11 +137,11 @@ def game_screen(screen):
             if estado == QDONE:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        game_screen(screen)
+                        game_screen2(screen)
             if estado == WIN:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        game_screen(screen) 
+                        game_screen2(screen) 
         
         
         
@@ -193,7 +190,8 @@ def game_screen(screen):
                 porta_group.empty()
                 Queijo_group.empty()
                 all_sprites.empty()
-                all_maps.empty()
+
+
                 estado = WIN 
                 
                 '''fase.avancar_fase()
@@ -257,7 +255,7 @@ def game_screen(screen):
             screen.blit(assets[BACKGROUND], (0, 0))
             score_text = assets[SCORE_FONT].render("{:08d}".format(score), True, BLUE)
             text_rect = score_text.get_rect()
-            text_rect.midtop = (WIDTH / 2, 1000)
+            text_rect.midtop = (200,700)
             screen.blit(score_text, text_rect)
         if estado == QDONE:
             all_sprites.empty()
@@ -268,12 +266,11 @@ def game_screen(screen):
         all_sprites.draw(screen)
 
         if estado == WIN:
-            return 1
-            '''all_sprites.empty()
+            all_sprites.empty()
             screen.fill(BLACK)
             screen.blit(winover,   (860, 240))
             screen.blit(score_over, (860, 540))
-            screen.blit(textoover1, (460, 740))'''    
+            screen.blit(textoover1, (460, 740))    
           
         
         #desenhando o score
@@ -281,4 +278,4 @@ def game_screen(screen):
         
 
         # Depois de desenhar tudo, inverte o display.
-        pygame.display.update()
+        pygame.display.update() 
