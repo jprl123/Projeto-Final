@@ -91,9 +91,8 @@ def game_screen(screen):
     score = 0
 
     
-    pygame.mixer.music.play(loops=-1)
+    #pygame.mixer.music.play(loops=-1)
     while estado != DONE:
-        assets = load_assets()
         clock.tick(FPS)
         # ----- Trata eventos
         for event in pygame.event.get():
@@ -137,10 +136,8 @@ def game_screen(screen):
                         player2.speedx -= SPEED_X 
             
             
-            if estado == QDONE:
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        game_screen(screen)
+            
+            
             if estado == WIN:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
@@ -179,9 +176,15 @@ def game_screen(screen):
         if len(hit2) > 0: 
             score+=100
             assets[PEGA_QUEIJO].play() 
+
+        hitagua = pygame.sprite.spritecollide(player1,water, False)
+        for c1 in hitagua:
+            #self.rect.x = 60 * TILE_SIZE
+            #self.rect.y = 2 * TILE_SIZE
             estado = QDONE
-        #if player2.kill == True:
-            #estado=QDONE 
+            print('adad')
+            return OVER,score
+            
 
 
 
@@ -240,12 +243,6 @@ def game_screen(screen):
                 pygame.display.update() 
                 passou_de_fase = True'''
         
-        
-        
-        elif estado == QDONE:
-            player1.kill()
-            player2.kill()
-
 
         
         
@@ -259,12 +256,7 @@ def game_screen(screen):
             text_rect = score_text.get_rect()
             text_rect.midtop = (WIDTH / 2, 1000)
             screen.blit(score_text, text_rect)
-        if estado == QDONE:
-            all_sprites.empty()
-            screen.fill(BLACK)
-            screen.blit(gameover,   (860, 240))
-            screen.blit(score_over, (860, 540))
-            screen.blit(textoover1, (460, 740))    
+           
         all_sprites.draw(screen)
 
         if estado == WIN:

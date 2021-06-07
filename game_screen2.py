@@ -90,7 +90,7 @@ def game_screen2(screen):
     
     pygame.mixer.music.play(loops=-1)
     while estado != DONE:
-        assets = load_assets()
+        #assets = load_assets()
         clock.tick(FPS)
         # ----- Trata eventos
         for event in pygame.event.get():
@@ -99,7 +99,6 @@ def game_screen2(screen):
                 estado = DONE
             # Só verifica o teclado se está no estado de jogo
             if estado == PLAYING:
-            
                 # Verifica se apertou alguma tecla.
                 if event.type == pygame.KEYDOWN:
                     # Dependendo da tecla, altera a velocidade.
