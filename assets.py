@@ -33,8 +33,7 @@ def load_assets():
 
 
     # Carrega os sons do jogo
-    #pygame.mixer.music.load(os.path.join(snd_dir, 'Tetris.ogg'))
-    pygame.mixer.music.load(os.path.join(snd_dir, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
+    pygame.mixer.music.load(os.path.join(snd_dir, 'Tetris.ogg'))
     pygame.mixer.music.set_volume(0.4)
     assets[FASE] = pygame.mixer.Sound(os.path.join(snd_dir, 'uepa.wav'))
     assets[JUMP] = pygame.mixer.Sound(os.path.join(snd_dir, 'jump.wav'))

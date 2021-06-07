@@ -88,10 +88,10 @@ class Rato1(pygame.sprite.Sprite):
             elif self.speedx < 0:
                 self.rect.left = c.rect.right
         #colisão para quando tocar no agua
-        hitagua = pygame.sprite.spritecollide(self,self.water, False)
+        '''hitagua = pygame.sprite.spritecollide(self,self.water, False)
         for c1 in hitagua:
             self.rect.x = 60 * TILE_SIZE
-            self.rect.y = 2 * TILE_SIZE
+            self.rect.y = 2 * TILE_SIZE'''
 
 
         # Método que faz o personagem pular

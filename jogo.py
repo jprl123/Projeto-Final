@@ -2,7 +2,7 @@
 # ----- Importa e inicia pacotes
 import pygame
 from config  import *
-from tela_inicial2 import init_screen, tutorial_screen
+from tela_inicial2 import gameover_screen, init_screen, tutorial_screen
 from game_screen import game_screen
 from game_screen2 import game_screen2
 
@@ -17,8 +17,6 @@ pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('O Rato e a Rata')
 
-gameIcon = pygame.image.load(path.join(img_dir, 'queijo.png'))
-pygame.display.set_icon(gameIcon)
 
 state = INICIA
 while state != SAIR:
@@ -27,9 +25,12 @@ while state != SAIR:
     elif state == INST:
         state = tutorial_screen(screen)
     elif state == JOGAR:
-        state = game_screen(screen)
-        if state == 1:
-            state = game_screen2(screen)
+        state,score = game_screen(screen)
+        print(state)
+        #if state == 1:
+            #state,score = game_screen2(screen)
+    elif state == OVER: 
+        state = gameover_screen(screen,score)
     else:
         state = SAIR
 pygame.quit()                

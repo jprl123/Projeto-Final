@@ -62,4 +62,29 @@ def tutorial_screen(screen):
 
 
 
+def gameover_screen(screen,score):
+    assets = load_assets()
+    clock = pygame.time.Clock()
+    score_over = assets[OVER_FONT].render("{:08d}".format(score), True, BLUE)
+    textoover1 = assets[OVER_FONT].render('Aperte ESPAÇO para reiniciar o jogo', True, BLUE)
+    gameover = assets[SCORE_FONT].render('GAME OVER', True, BLUE)
+    
+    running = True
+    while running:
+        # Ajusta a velocidade do jogo.
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            # Verifica se foi fechado.
+            if event.type == pygame.QUIT:
+                state = SAIR
+                running = False
+            if event.type == pygame.KEYUP:
+                state = JOGAR
+                running = False
+    screen.fill(BLACK)
+    screen.blit(gameover,   (860, 240))
+    screen.blit(score_over, (860, 540))
+    screen.blit(textoover1, (460, 740)) 
+    pygame.display.flip()
 
+    return state
