@@ -38,8 +38,8 @@ EMPTY = -1
 # Dados gerais do jogo.
 WIDTH = 1920//2  # Largura da tela
 HEIGHT = 1080//2 # Altura da tela
-FPS = 60 # Frames por segundo
-TILE_SIZE = 30//2  # Tamanho de cada tile (cada tile é um quadrado)
+FPS = 60 // 3 # Frames por segundo
+TILE_SIZE = 30// 2 # Tamanho de cada tile (cada tile é um quadrado)
 
 # Define tamanhos
 RATO_HEIGHT = TILE_SIZE*2 #int(50*(2/3))
@@ -62,7 +62,9 @@ INICIA = 0
 INST = 1
 JOGAR = 2
 OVER = 3
-SAIR = 4
+WIN = 4
+SAIR = 5
+
 
 #gravidade
 GRAVITY = 3

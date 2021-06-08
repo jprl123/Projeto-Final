@@ -8,8 +8,8 @@ from sprites import *
 pygame.init()
 # Define o mapa com os tipos de tiles
 fase = Fase()
-pygame.mixer.init()
-
+#pygame.mixer.init()
+pygame.event.clear()
 def game_screen2(screen):
     clock = pygame.time.Clock()
     # Carrega assets
@@ -88,7 +88,7 @@ def game_screen2(screen):
     score = 0
 
     
-    pygame.mixer.music.play(loops=-1)
+    #pygame.mixer.music.play(loops=-1)
     while estado != DONE:
         #assets = load_assets()
         clock.tick(FPS)

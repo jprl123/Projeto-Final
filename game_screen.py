@@ -30,7 +30,7 @@ def game_screen(screen):
     porta_group = pygame.sprite.Group()
     
 
-    MAP = fase.excel_txt2mapa('mapa2.txt')
+    MAP = fase.excel_txt2mapa('mapa1.txt')
 
     # cria os queijos no mapa
     while len(Queijo_group) <= 10:
@@ -256,7 +256,7 @@ def game_screen(screen):
         all_sprites.draw(screen)
 
         if estado == WIN:
-            return 1
+            return 1, score
             '''all_sprites.empty()
             screen.fill(BLACK)
             screen.blit(winover,   (860, 240))
@@ -270,3 +270,4 @@ def game_screen(screen):
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.update()
+    return SAIR,score    
