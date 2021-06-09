@@ -4,7 +4,7 @@ import os
 from config  import *
 
 
-
+#define os assets e guarda em um dicionario
 def load_assets():
     assets = {}
     assets[BACKGROUND] = pygame.image.load(path.join(img_dir, 'mapa.png')).convert()
@@ -35,9 +35,8 @@ def load_assets():
     # Carrega os sons do jogo
     pygame.mixer.music.load(os.path.join(snd_dir, 'Tetris.ogg'))
     pygame.mixer.music.set_volume(0.4)
-    assets[FASE] = pygame.mixer.Sound(os.path.join(snd_dir, 'uepa.wav'))
+
     assets[JUMP] = pygame.mixer.Sound(os.path.join(snd_dir, 'jump.wav'))
-    #assets[JUMP] = pygame.mixer.Sound(os.path.join(snd_dir, 'rapaz.wav'))
-    assets[PEGA_QUEIJO] = pygame.mixer.Sound(os.path.join(snd_dir, 'uepa.wav'))
+    assets[PEGA_QUEIJO] = pygame.mixer.Sound(os.path.join(snd_dir, 'rapaz.wav'))
     return assets
 

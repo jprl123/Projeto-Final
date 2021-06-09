@@ -6,7 +6,6 @@ class Fase():
         self.fase += 1
         print(self.fase) 
         self.mapa = self.excel_txt2mapa('mapa{}.txt'.format(self.fase))
-        print('soma fase')
         
     def espelha_mapa(self,l):
         l_2 = []

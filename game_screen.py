@@ -11,25 +11,23 @@ fase = Fase()
 #pygame.mixer.init()
 
 def game_screen(screen):
-    pygame.mixer.music.load(os.path.join(snd_dir, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
-    pygame.mixer.music.set_volume(0.4)
     clock = pygame.time.Clock()
     # Carrega assets
     assets = load_assets()
     # Cria um grupo de todos os sprites.
     all_sprites = pygame.sprite.Group()
-    all_maps = pygame.sprite.Group() 
     # Cria um grupo somente com os sprites de bloco.
+
     groups = {}
     groups['all_sprites'] = all_sprites
-    groups['all_maps'] = all_maps
+
     blocks = pygame.sprite.Group()
     fogo = pygame.sprite.Group()
     water = pygame.sprite.Group()
     Queijo_group = pygame.sprite.Group() 
     porta_group = pygame.sprite.Group()
     
-
+    # define o mapa que esta sendo jogado
     MAP = fase.excel_txt2mapa('mapa1.txt')
 
     # cria os queijos no mapa
@@ -43,6 +41,9 @@ def game_screen(screen):
             Q = Queijo(assets[QUEIJO], WIDTH-x*TILE_SIZE, y*TILE_SIZE) # espelha do outro lado do mapa
             Queijo_group.add(Q)
             all_sprites.add(Q)
+    
+    
+    
     while len(porta_group) <= 1:
         x = (28)
         y = (29)
@@ -82,12 +83,11 @@ def game_screen(screen):
     PLAYING = 0
     DONE = 1
     QDONE = 2
-    WIN = 3
     estado = PLAYING
     score = 0
 
     
-    #pygame.mixer.music.play(loops=-1)
+    pygame.mixer.music.play(loops=-1)
     while estado != DONE:
         clock.tick(FPS)
         # ----- Trata eventos
@@ -131,38 +131,9 @@ def game_screen(screen):
                     if event.key == pygame.K_d:
                         player2.speedx -= SPEED_X 
             
-            
-            
-            
-            #if estado == WIN: 
-                #if event.type == pygame.KEYDOWN:
-                    #if event.key == pygame.K_SPACE:
-                        #game_screen(screen) 
-        
-        
-        
-        
-        score_text = assets[SCORE_FONT].render("{:08d}".format(score), True, BLUE)
-        score_over = assets[OVER_FONT].render("{:08d}".format(score), True, BLUE)
-        textoover1 = assets[OVER_FONT].render('Aperte ESPAÇO para reiniciar o jogo', True, BLUE)
-        gameover = assets[SCORE_FONT].render('GAME OVER', True, BLUE)
-        winover = assets[SCORE_FONT].render('YOU WIN!', True, BLUE)
-
-
-
-        hitfogo = pygame.sprite.spritecollide(player2,fogo, False)
-        for c2 in hitfogo:
-            '''player2.rect.x = 2 * TILE_SIZE
-            player2.rect.y = 2 * TILE_SIZE'''
-            player2.kill()
-            estado = QDONE
-            return OVER,score
-
-
 
 
         all_sprites.update()
-        all_maps.update()
 
         hit1=pygame.sprite.spritecollide(player1,Queijo_group, True)
         if len(hit1) > 0:
@@ -180,92 +151,55 @@ def game_screen(screen):
             estado = QDONE
             print('adad')
             return OVER,score
+        
+        hitfogo = pygame.sprite.spritecollide(player2,fogo, False)
+        for c2 in hitfogo:
+            player2.rect.x = 2 * TILE_SIZE
+            player2.rect.y = 2 * TILE_SIZE
+            player2.kill()
+            estado = QDONE
+            return OVER,score
+
             
 
 
 
 
-
+        # verifica o hit com a porta e verifica se os 2 estão sobre elas
         hit4=pygame.sprite.spritecollide(player2,porta_group, False)
         hit3=pygame.sprite.spritecollide(player1,porta_group, False)
         if len(hit3) > 0 and len(hit4)>0:
+                # limpa o mapa
                 porta_group.empty()
                 Queijo_group.empty()
                 all_sprites.empty()
-                all_maps.empty()
-                estado = WIN 
+                all_sprites.empty()
+                estado = PASSOU
                 
-                '''fase.avancar_fase()
-                MAP = fase.mapa
-                # Cria os blocos de acordo com o mapa
-                while len(Queijo_group) <= 10:
-                    x = random.randint(2,30)
-                    y = random.randint(2,15)
-                    if MAP[x][y] == EMPTY:
-                        Q = Queijo(assets[QUEIJO], x*TILE_SIZE, y*TILE_SIZE)
-                        Queijo_group.add(Q)
-                        all_sprites.add(Q)
-                        Q = Queijo(assets[QUEIJO], WIDTH-x*TILE_SIZE, y*TILE_SIZE) # espelha do outro lado do mapa
-                        Queijo_group.add(Q)
-                        all_sprites.add(Q)
-                while len(porta_group) <= 1:
-                    x = (28)
-                    y = (29)
-                    if MAP[x][y] == EMPTY:
-                        P = Portav(assets[PORTAV], x*TILE_SIZE, y*TILE_SIZE)
-                        porta_group.add(P)
-                        all_sprites.add(P)
-                        P = Portav(assets[PORTAV], WIDTH-x*TILE_SIZE, y*TILE_SIZE) # espelha do outro lado do mapa
-                        porta_group.add(P)
-                        all_sprites.add(P)
                 
-                for x in range(len(MAP)):
-                    for y in range(len(MAP[x])):
-                        tile_type = MAP[x][y]
-                        if tile_type == BLOCK:
-                            tile = Tile(assets[tile_type], x, y)
-                            all_sprites.add(tile)
-                            blocks.add(tile)
-                        elif tile_type == FOGO:
-                            tile = Tile(assets[tile_type], x, y)
-                            all_sprites.add(tile)
-                            fogo.add(tile)
-                        elif tile_type == WATER:
-                            tile = Tile(assets[tile_type], x, y)
-                            all_sprites.add(tile)
-                            water.add(tile)
-                        print(f'fase: {fase.fase}')
-                all_sprites.update()
-                pygame.display.update() 
-                passou_de_fase = True'''
-        
 
         
         
         
 
-        # A cada loop, redesenha o fundo e os sprites
+    
         if estado == PLAYING:
+
+            # redesenha o fundo
             screen.fill(BLACK)  
             screen.blit(assets[BACKGROUND], (0, 0))
+
+            #desenhando o score
             score_text = assets[SCORE_FONT].render("{:08d}".format(score), True, BLUE)
             text_rect = score_text.get_rect()
-            text_rect.midtop = (WIDTH / 2, 1000)
+            text_rect.midtop = (200,950)
             screen.blit(score_text, text_rect)
-           
+
+        # redesenha as sprites   
         all_sprites.draw(screen)
 
-        if estado == WIN:
+        if estado == PASSOU:
             return 1, score
-            '''all_sprites.empty()
-            screen.fill(BLACK)
-            screen.blit(winover,   (860, 240))
-            screen.blit(score_over, (860, 540))
-            screen.blit(textoover1, (460, 740))'''    
-          
-        
-        #desenhando o score
-        
         
 
         # Depois de desenhar tudo, inverte o display.

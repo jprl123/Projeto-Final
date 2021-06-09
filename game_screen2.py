@@ -255,13 +255,7 @@ def game_screen2(screen):
             score_text = assets[SCORE_FONT].render("{:08d}".format(score), True, BLUE)
             text_rect = score_text.get_rect()
             text_rect.midtop = (200,700)
-            screen.blit(score_text, text_rect)
-        if estado == QDONE:
-            all_sprites.empty()
-            screen.fill(BLACK)
-            screen.blit(gameover,   (860, 240))
-            screen.blit(score_over, (860, 540))
-            screen.blit(textoover1, (460, 740))    
+            screen.blit(score_text, text_rect)  
         all_sprites.draw(screen)
 
         if estado == WIN:

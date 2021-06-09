@@ -2,7 +2,7 @@
 # ----- Importa e inicia pacotes
 import pygame
 from config  import *
-from tela_inicial2 import gameover_screen, init_screen, tutorial_screen, gamewin_screen
+from telas import gameover_screen, init_screen, tutorial_screen, gamewin_screen
 from game_screen import game_screen
 from game_screen2 import game_screen2
 
@@ -27,10 +27,9 @@ while state != SAIR:
         state = tutorial_screen(screen)
     elif state == JOGAR:
         state, score = game_screen(screen)
-        #state = game_screen(screen)
         print(state)
         if state == 1:
-            state = game_screen2(screen)
+            state, score = game_screen2(screen)
     elif state == OVER: 
         state = gameover_screen(screen, score)
     elif state == WIN:

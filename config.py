@@ -2,13 +2,13 @@ from os import path
 
 
 
-#Estabelece a pasta que contem as figuras e sons.
+#Estabelece a pasta que contem as figuras, sons e fontes.
 img_dir = path.join(path.dirname(__file__), 'assets\img')
 font_dir = path.join(path.dirname(__file__), 'assets','font')
 snd_dir = path.join(path.dirname(__file__), 'assets\snd')
 
 
-# predefinições para as imagens
+# predefinições para as imagens, sons e fontes
 RATO1 = 'rato1_img'
 RATO2 = 'rato2_img'
 QUEIJO = 'queijo_img'
@@ -16,13 +16,12 @@ BACKGROUND = 'background_img'
 SCORE_FONT = 'score_font'
 OVER_FONT = 'font_over'
 JUMP = 'rapaz_snd'
-FASE = 'uepa_snd'
+QUEIJOSOM = 'rapaz_snd'
 MENU = 'menu_img'
 TUTORIAL = 'instrucao_img'
 PORTAV = 'portav_img'
 RATO1_ESP = 'rato1esp_img'
 RATO2_ESP = 'rato2esp_img'
-
 PEGA_QUEIJO = 'uepa_snd'
 
 
@@ -36,10 +35,10 @@ EMPTY = -1
 
 
 # Dados gerais do jogo.
-WIDTH = 1920//2  # Largura da tela
-HEIGHT = 1080//2 # Altura da tela
+WIDTH = 1920  # Largura da tela
+HEIGHT = 1080 # Altura da tela
 FPS = 60 // 3 # Frames por segundo
-TILE_SIZE = 30// 2 # Tamanho de cada tile (cada tile é um quadrado)
+TILE_SIZE = 30 # Tamanho de cada tile (cada tile é um quadrado)
 
 # Define tamanhos
 RATO_HEIGHT = TILE_SIZE*2 #int(50*(2/3))
@@ -63,7 +62,8 @@ INST = 1
 JOGAR = 2
 OVER = 3
 WIN = 4
-SAIR = 5
+PASSOU = 5
+SAIR = 6
 
 
 #gravidade
