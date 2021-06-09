@@ -5,10 +5,10 @@ from assets import *
 import random
 from sprites import *
 
-#pygame.init()
-# Define o mapa com os tipos de tiles
+
+# a classe de fase como uma variavel 
 fase = Fase()
-#pygame.mixer.init()
+
 
 def game_screen(screen):
     clock = pygame.time.Clock()
@@ -30,10 +30,10 @@ def game_screen(screen):
     # define o mapa que esta sendo jogado
     MAP = fase.excel_txt2mapa('mapa1.txt')
 
-    # cria os queijos no mapa
-    while len(Queijo_group) <= 10:
+    # cria os queijos no mapa e espelhamento
+    while len(Queijo_group) <= 5:
         x = random.randint(2,30)
-        y = random.randint(2,15)
+        y = random.randint(5,15)
         if MAP[x][y] == EMPTY:
             Q = Queijo(assets[QUEIJO], x*TILE_SIZE, y*TILE_SIZE)
             Queijo_group.add(Q)
@@ -43,7 +43,7 @@ def game_screen(screen):
             all_sprites.add(Q)
     
     
-    
+    # criação de porta e espelhamento 
     while len(porta_group) <= 1:
         x = (28)
         y = (29)
@@ -57,11 +57,11 @@ def game_screen(screen):
     
 
 
-    # Cria Sprite do jogador
+    # Cria Sprite do jogador, define posição iniciais 
     player1 = Rato1(assets[RATO1_ESP], 5, 60, blocks,fogo,water)
     player2 = Rato2(assets[RATO2], 5, 5, blocks,fogo,water)  # onde spawna
 
-    
+    #Criação do mapa de acordo com os blocos
     for x in range(len(MAP)):
         for y in range(len(MAP[x])):
             tile_type = MAP[x][y]
@@ -79,14 +79,14 @@ def game_screen(screen):
                 water.add(tile) 
     all_sprites.add(player1,player2)
 
-
+    # Estados do jogo
     PLAYING = 0
     DONE = 1
     QDONE = 2
     estado = PLAYING
     score = 0
 
-    
+    #Roda a música
     pygame.mixer.music.play(loops=-1)
     while estado != DONE:
         clock.tick(FPS)
@@ -113,9 +113,11 @@ def game_screen(screen):
                     if event.key == pygame.K_d:
                         player2.speedx += SPEED_X
                         player2.image = assets[RATO2]
+                    # evento que faz o jogador pular    
                     elif event.key == pygame.K_UP:
                         player1.jump()
                         assets[JUMP].play()
+                    # evento que faz o jogador pular 
                     elif event.key == pygame.K_w:  
                         player2.jump()
                         assets[JUMP].play()
@@ -134,7 +136,7 @@ def game_screen(screen):
 
 
         all_sprites.update()
-
+        #condições responsáveis por pegar o queijo, aumentando o score
         hit1=pygame.sprite.spritecollide(player1,Queijo_group, True)
         if len(hit1) > 0:
             score+=100
@@ -143,18 +145,19 @@ def game_screen(screen):
         if len(hit2) > 0: 
             score+=100
             assets[PEGA_QUEIJO].play() 
-
+        # condição que faz o jogador vermelho perder, devolvendo tela de game over
         hitagua = pygame.sprite.spritecollide(player1,water, False)
         for c1 in hitagua:
-            #self.rect.x = 60 * TILE_SIZE
-            #self.rect.y = 2 * TILE_SIZE
+            player1.rect.x = 60 * TILE_SIZE
+            player1.rect.y = 2 * TILE_SIZE
+            player1.kill()
             estado = QDONE
-            print('adad')
+            
             return OVER,score
-        
+        # condição que faz o jogador azul perder, devolvendo tela de game over
         hitfogo = pygame.sprite.spritecollide(player2,fogo, False)
         for c2 in hitfogo:
-            player2.rect.x = 2 * TILE_SIZE
+            player2.rect.x = 5 * TILE_SIZE
             player2.rect.y = 2 * TILE_SIZE
             player2.kill()
             estado = QDONE
@@ -173,8 +176,7 @@ def game_screen(screen):
                 porta_group.empty()
                 Queijo_group.empty()
                 all_sprites.empty()
-                all_sprites.empty()
-                estado = PASSOU
+                estado = WIN
                 
                 
 
@@ -197,9 +199,9 @@ def game_screen(screen):
 
         # redesenha as sprites   
         all_sprites.draw(screen)
-
-        if estado == PASSOU:
-            return 1, score
+        # condição que devolve a tela de vencedor 
+        if estado == WIN:
+            return WIN, score
         
 
         # Depois de desenhar tudo, inverte o display.

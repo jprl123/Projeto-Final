@@ -73,8 +73,9 @@ def gameover_screen(screen,score):
                 state = SAIR
                 running = False
             if event.type == pygame.KEYUP:
-                state = JOGAR
-                running = False
+                if event.key == pygame.K_SPACE:
+                    state = JOGAR
+                    running = False
         screen.fill(BLACK)
         screen.blit(gameover,   (860, 240))
         screen.blit(score_over, (860, 540))
@@ -101,8 +102,9 @@ def gamewin_screen(screen,score):
                 state = SAIR
                 running = False
             if event.type == pygame.KEYUP:
-                state = JOGAR
-                running = False
+                if event.key == pygame.K_SPACE:
+                    state = JOGAR
+                    running = False
         #produz a tela de WIN
         screen.fill(BLACK)
         screen.blit(gamewin,   (860, 240))

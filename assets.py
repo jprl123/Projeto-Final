@@ -34,7 +34,7 @@ def load_assets():
 
     # Carrega os sons do jogo
     pygame.mixer.music.load(os.path.join(snd_dir, 'Tetris.ogg'))
-    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.set_volume(0.1)
 
     assets[JUMP] = pygame.mixer.Sound(os.path.join(snd_dir, 'jump.wav'))
     assets[PEGA_QUEIJO] = pygame.mixer.Sound(os.path.join(snd_dir, 'rapaz.wav'))
