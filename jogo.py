@@ -29,7 +29,7 @@ while state != SAIR:
         state, score = game_screen(screen)
         print(state)
         if state == PASSOU:
-            state == transi_screen(screen)
+            state = transi_screen(screen)
             state, score = game_screen2(screen,score)
     elif state == OVER: 
         state = gameover_screen(screen, score)
