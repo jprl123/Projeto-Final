@@ -57,7 +57,7 @@ def game_screen2(screen,score):
 
     # Cria Sprite do jogador, define posição iniciais 
     player1 = Rato1(assets[RATO1_ESP], 5, 60, blocks,fogo,water)
-    player2 = Rato2(assets[RATO2], 5, 5, blocks,fogo,water)  # onde spawna
+    player2 = Rato2(assets[RATO2], 5, 3, blocks,fogo,water)  # onde spawna
 
     #Criação do mapa de acordo com os blocos
     for x in range(len(MAP)):
@@ -185,12 +185,12 @@ def game_screen2(screen,score):
 
             # redesenha o fundo
             screen.fill(BLACK)  
-            screen.blit(assets[BACKGROUND], (0, 0))
+            screen.blit(assets[BACKGROUND2], (0, 0))
 
             #desenhando o score
             score_text = assets[SCORE_FONT].render("{:08d}".format(score), True, BLUE)
             text_rect = score_text.get_rect()
-            text_rect.midtop = (200,950)
+            text_rect.midtop = (400,950)
             screen.blit(score_text, text_rect)
 
         # redesenha as sprites   

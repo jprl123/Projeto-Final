@@ -27,7 +27,6 @@ while state != SAIR:
         state = tutorial_screen(screen)
     elif state == JOGAR:
         state, score = game_screen(screen)
-        print(state)
         if state == PASSOU:
             state = transi_screen(screen)
             state, score = game_screen2(screen,score)

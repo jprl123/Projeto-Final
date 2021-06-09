@@ -30,6 +30,12 @@ def load_assets():
     assets[RATO1_ESP] = pygame.transform.scale(assets[RATO1_ESP],(RATO_WIDTH, RATO_HEIGHT))
     assets[RATO2_ESP] = pygame.image.load(path.join(img_dir, 'rato2(ani(e).png')).convert_alpha()
     assets[RATO2_ESP] = pygame.transform.scale(assets[RATO2_ESP],(RATO_WIDTH, RATO_HEIGHT))
+    assets[BACKGROUND2] = pygame.image.load(path.join(img_dir, 'mapa2.png')).convert()
+    assets[BACKGROUND2] = pygame.transform.scale(assets[BACKGROUND2],(WIDTH,HEIGHT))
+    assets[TELATRANSI] = pygame.image.load(path.join(img_dir, 'gameWO.png')).convert()
+    assets[TELATRANSI] = pygame.transform.scale(assets[TELATRANSI],(WIDTH,HEIGHT))
+
+
 
 
     # Carrega os sons do jogo

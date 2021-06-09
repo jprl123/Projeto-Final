@@ -60,6 +60,7 @@ def gameover_screen(screen,score):
     clock = pygame.time.Clock()
     score_over = assets[OVER_FONT].render("{:08d}".format(score), True, BLUE)
     textoover1 = assets[OVER_FONT].render('Aperte ESPAÇO para reiniciar o jogo', True, BLUE)
+    textoover2 = assets[OVER_FONT].render('Aperte ESC se quiser sair do jogo', True, BLUE)
     gameover = assets[SCORE_FONT].render('GAME OVER', True, BLUE)
     #Limpa eventos -> parecia que ao carregar essa página o pygame estava com eventos da outra tela
     pygame.event.clear()
@@ -76,10 +77,15 @@ def gameover_screen(screen,score):
                 if event.key == pygame.K_SPACE:
                     state = JOGAR
                     running = False
+                if event.key == pygame.K_ESCAPE:
+                    state = SAIR
+                    running = False
         screen.fill(BLACK)
+        screen.blit(assets[TELATRANSI], (0, 0))
         screen.blit(gameover,   (860, 240))
         screen.blit(score_over, (860, 540))
         screen.blit(textoover1, (460, 740))
+        screen.blit(textoover2, (480, 840))
         pygame.display.flip()
     return state
 
@@ -89,6 +95,7 @@ def gamewin_screen(screen,score):
     clock = pygame.time.Clock()
     score_over = assets[OVER_FONT].render("{:08d}".format(score), True, BLUE)
     textoover1 = assets[OVER_FONT].render('Aperte ESPAÇO para reiniciar o jogo', True, BLUE)
+    textoover2 = assets[OVER_FONT].render('Aperte ESC se quiser sair do jogo', True, BLUE)
     gamewin = assets[SCORE_FONT].render('YOU WIN', True, BLUE)
     #Limpa eventos -> parecia que ao carregar essa página o pygame estava com eventos da outra tela
     pygame.event.clear()
@@ -105,11 +112,16 @@ def gamewin_screen(screen,score):
                 if event.key == pygame.K_SPACE:
                     state = JOGAR
                     running = False
+                if event.key == pygame.K_ESCAPE:
+                    state = SAIR
+                    running = False
         #produz a tela de WIN
         screen.fill(BLACK)
+        screen.blit(assets[TELATRANSI], (0, 0))
         screen.blit(gamewin,   (860, 240))
         screen.blit(score_over, (860, 540))
         screen.blit(textoover1, (460, 740))
+        screen.blit(textoover2, (480, 840))
         pygame.display.flip()
     return state
 
@@ -134,6 +146,7 @@ def transi_screen(screen):
                     running = False
         #produz a tela de WIN
         screen.fill(BLACK)
-        screen.blit(textoover1, (460, 740))
+        screen.blit(assets[TELATRANSI], (0, 0))
+        screen.blit(textoover1, (460, HEIGHT//2))
         pygame.display.flip()
     return state
