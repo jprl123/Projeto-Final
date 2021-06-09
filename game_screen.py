@@ -15,11 +15,10 @@ def game_screen(screen):
     assets = load_assets()
     # Cria um grupo de todos os sprites.
     all_sprites = pygame.sprite.Group()
-    # Cria um grupo somente com os sprites de bloco.
 
+    # Cria um grupo somente com os sprites de bloco.
     groups = {}
     groups['all_sprites'] = all_sprites
-
     blocks = pygame.sprite.Group()
     fogo = pygame.sprite.Group()
     water = pygame.sprite.Group()
@@ -31,6 +30,7 @@ def game_screen(screen):
 
     # cria os queijos no mapa e espelhamento
     while len(Queijo_group) <= 8:
+        #define o espaço onde os queijos podem ser criados
         x = random.randint(2,30)
         y = random.randint(5,25)
         if MAP[x][y] == EMPTY:
@@ -44,6 +44,7 @@ def game_screen(screen):
     
     # criação de porta e espelhamento 
     while len(porta_group) <= 1:
+        #define onde a porta vai ser criada
         x = (28)
         y = (29)
         if MAP[x][y] == EMPTY:
@@ -65,17 +66,22 @@ def game_screen(screen):
         for y in range(len(MAP[x])):
             tile_type = MAP[x][y]
             if tile_type == BLOCK:
+                #adiciona o bloco do chao
                 tile = Tile(assets[tile_type], x, y)
                 all_sprites.add(tile)
                 blocks.add(tile)
             elif tile_type == FOGO:
+                #adiciona o bloco de fogo
                 tile = Tile(assets[tile_type], x, y)
                 all_sprites.add(tile)
                 fogo.add(tile)
             elif tile_type == WATER:
+                #adiciona o bloco da agua
                 tile = Tile(assets[tile_type], x, y)
                 all_sprites.add(tile)
                 water.add(tile) 
+    
+    #adiciona os jogadores
     all_sprites.add(player1,player2)
 
     # Estados do jogo
@@ -143,21 +149,17 @@ def game_screen(screen):
         if len(hit2) > 0: 
             score+=100
             assets[PEGA_QUEIJO].play() 
+        
         # condição que faz o jogador vermelho perder, devolvendo tela de game over
         hitagua = pygame.sprite.spritecollide(player1,water, False)
         for c1 in hitagua:
-            player1.rect.x = 60 * TILE_SIZE
-            player1.rect.y = 2 * TILE_SIZE
-            player1.kill()
+            #atualiza o estado do jogo
             estado = QDONE
-            
             return OVER,score
         # condição que faz o jogador azul perder, devolvendo tela de game over
         hitfogo = pygame.sprite.spritecollide(player2,fogo, False)
         for c2 in hitfogo:
-            player2.rect.x = 5 * TILE_SIZE
-            player2.rect.y = 2 * TILE_SIZE
-            player2.kill()
+            #atualiza o estado do jogo
             estado = QDONE
             return OVER,score
 
@@ -174,6 +176,7 @@ def game_screen(screen):
                 porta_group.empty()
                 Queijo_group.empty()
                 all_sprites.empty()
+                #atualiza o estado do jogo
                 estado = PASSOU
                 
                 
@@ -197,12 +200,12 @@ def game_screen(screen):
 
         # redesenha as sprites   
         all_sprites.draw(screen)
-        # condição que devolve a tela de vencedor 
+        # condição que devolve faz passar de fase 
         if estado == PASSOU:
             return PASSOU, score
         
 
-        # Depois de desenhar tudo, inverte o display.
+        # atualiza o display
         pygame.display.update()
     return SAIR,score 
   

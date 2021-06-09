@@ -1,6 +1,8 @@
+#classe do mapa
 class Fase():
     def __init__(self):
         self.fase = 0 
+    # função que espelha o mapa 
     def espelha_mapa(self,l):
         l_2 = []
         for i in range(len(l)):
@@ -41,5 +43,4 @@ class Fase():
         for linha in f:
             for num in range(len(linha)):
                 linha[num] = int(linha[num])
-        return self.espelha_mapa(f)
-        
+        return self.espelha_mapa(f) #devlve o mapa espelhado
