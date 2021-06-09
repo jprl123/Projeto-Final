@@ -82,7 +82,6 @@ def game_screen2(screen,score):
     DONE = 1
     QDONE = 2
     estado = PLAYING
-    score = 0
 
     #Roda a música
     pygame.mixer.music.play(loops=-1)
