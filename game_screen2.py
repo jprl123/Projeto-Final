@@ -44,7 +44,7 @@ def game_screen2(screen,score):
     # criação de porta e espelhamento 
     while len(porta_group) <= 1:
         x = (28)
-        y = (29)
+        y = (30)
         if MAP[x][y] == EMPTY:
             P = Portav(assets[PORTAV], x*TILE_SIZE, y*TILE_SIZE)
             porta_group.add(P)
