@@ -112,3 +112,28 @@ def gamewin_screen(screen,score):
         screen.blit(textoover1, (460, 740))
         pygame.display.flip()
     return state
+
+def transi_screen(screen):
+    assets = load_assets()
+    clock = pygame.time.Clock()
+    textoover1 = assets[OVER_FONT].render('FASE 2 APERTE ESPAÇO PARA CONTINUAR', True, BLUE)
+    #Limpa eventos -> parecia que ao carregar essa página o pygame estava com eventos da outra tela
+    pygame.event.clear()
+    running = True
+    while running:
+        # Ajusta a velocidade do jogo.
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            # Verifica se foi fechado.
+            if event.type == pygame.QUIT:
+                state = SAIR
+                running = False
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_SPACE:
+                    state = JOGAR
+                    running = False
+        #produz a tela de WIN
+        screen.fill(BLACK)
+        screen.blit(textoover1, (460, 740))
+        pygame.display.flip()
+    return state

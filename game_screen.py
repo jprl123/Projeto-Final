@@ -9,7 +9,6 @@ from sprites import *
 # a classe de fase como uma variavel 
 fase = Fase()
 
-
 def game_screen(screen):
     clock = pygame.time.Clock()
     # Carrega assets
@@ -31,9 +30,9 @@ def game_screen(screen):
     MAP = fase.excel_txt2mapa('mapa1.txt')
 
     # cria os queijos no mapa e espelhamento
-    while len(Queijo_group) <= 5:
+    while len(Queijo_group) <= 8:
         x = random.randint(2,30)
-        y = random.randint(5,15)
+        y = random.randint(5,25)
         if MAP[x][y] == EMPTY:
             Q = Queijo(assets[QUEIJO], x*TILE_SIZE, y*TILE_SIZE)
             Queijo_group.add(Q)
@@ -97,7 +96,6 @@ def game_screen(screen):
                 estado = DONE
             # Só verifica o teclado se está no estado de jogo
             if estado == PLAYING:
-            
                 # Verifica se apertou alguma tecla.
                 if event.type == pygame.KEYDOWN:
                     # Dependendo da tecla, altera a velocidade.
@@ -176,7 +174,7 @@ def game_screen(screen):
                 porta_group.empty()
                 Queijo_group.empty()
                 all_sprites.empty()
-                estado = WIN
+                estado = PASSOU
                 
                 
 
@@ -200,10 +198,11 @@ def game_screen(screen):
         # redesenha as sprites   
         all_sprites.draw(screen)
         # condição que devolve a tela de vencedor 
-        if estado == WIN:
-            return WIN, score
+        if estado == PASSOU:
+            return PASSOU, score
         
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.update()
-    return SAIR,score    
+    return SAIR,score 
+  

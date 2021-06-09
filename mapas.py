@@ -1,12 +1,6 @@
 class Fase():
     def __init__(self):
-        self.fase = 0
-        self.avancar_fase()
-    def avancar_fase(self):
-        self.fase += 1
-        print(self.fase) 
-        self.mapa = self.excel_txt2mapa('mapa{}.txt'.format(self.fase))
-        
+        self.fase = 0 
     def espelha_mapa(self,l):
         l_2 = []
         for i in range(len(l)):
