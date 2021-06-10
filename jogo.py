@@ -15,7 +15,7 @@ pygame.mixer.init()
 
 # ----- Gera tela principal-------------
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('O Rato e a Rata')
+pygame.display.set_caption('O Rato de fogo e a Rato de água')
 #icone do jogo
 gameIcon = pygame.image.load(path.join(img_dir, 'queijo.png'))
 pygame.display.set_icon(gameIcon)

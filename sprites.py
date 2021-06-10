@@ -1,7 +1,7 @@
 import pygame
 from config import *
 from assets import *
-import random
+
 
 
 

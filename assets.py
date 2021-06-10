@@ -34,10 +34,6 @@ def load_assets():
     assets[BACKGROUND2] = pygame.transform.scale(assets[BACKGROUND2],(WIDTH,HEIGHT))
     assets[TELATRANSI] = pygame.image.load(path.join(img_dir, 'gameWO.png')).convert()
     assets[TELATRANSI] = pygame.transform.scale(assets[TELATRANSI],(WIDTH,HEIGHT))
-
-
-
-
     # Carrega os sons do jogo
     pygame.mixer.music.load(os.path.join(snd_dir, 'Tetris.ogg'))
     pygame.mixer.music.set_volume(0.05)

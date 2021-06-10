@@ -8,15 +8,15 @@ from sprites import *
 
 # a classe de fase como uma variavel 
 fase = Fase()
-
+#Referente a fase 2
 def game_screen2(screen,score):
     clock = pygame.time.Clock()
     # Carrega assets
     assets = load_assets()
     # Cria um grupo de todos os sprites.
     all_sprites = pygame.sprite.Group()
-    # Cria um grupo somente com os sprites de bloco.
 
+    # Cria um grupo somente com os sprites de bloco.
     groups = {}
     groups['all_sprites'] = all_sprites
     blocks = pygame.sprite.Group()
@@ -135,7 +135,7 @@ def game_screen2(screen,score):
                         player2.speedx += SPEED_X
                     if event.key == pygame.K_d:
                         player2.speedx -= SPEED_X 
-            
+                  
 
 
         all_sprites.update()
